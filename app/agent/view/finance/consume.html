@@ -1,0 +1,34 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.toolbar{margin-bottom: 10px;}
+	input,dl{font-size: 14px;}
+	.layui-input{height: 30px;}
+	.layui-table tr {height: 50px;}
+	td[data-field="headimgurl"] img{width: 32px;}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">消费列表</div>
+		<div class="layui-card-body">
+			<div id="consume-table" lay-filter="consume"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="toolbar">
+
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'finance']);
+</script>
+{/block}

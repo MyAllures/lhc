@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>API</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+	<link rel="stylesheet" href="__LAYUIS__/style/base.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+	   <script src="__LAYUI__/layui.js"></script>
+   
+  <style>
+  .bd{
+    display: inline-block;
+    width: 80%;
+    position: relative;
+    left: 5px;
+  }
+  .btn{
+    display: inline-block;
+    width: 18%;
+    height: 38px;
+    line-height: 1.3;
+    cursor: pointer;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border:1px solid #e6e6e6;
+    background-color: #EFEFEF;
+    outline: none;
+  }
+</style>
+    <div class="layui-fluid">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+          <div class="layui-card">
+            <div class="layui-card-body">
+			        <div class="layui-form-item">
+                <input type="text" class="layui-input bd" id="tok" value="{$rs['token']}">
+                  <button class="btn">复制链接</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+<script>
+// $('#clipBoardTxt').click(function(){
+//   var text=$('.bd').val();
+//   var clip = new ZeroClipboard($('#clipBoardTxt'));
+//   clip.setText(text);
+// });
+$(function(){
+  $('.btn').click(function(){
+   if(copyToClipboard(document.getElementById('tok'))==true){
+    layui.use(['layer', 'form'], function(){
+      var layer = layui.layer;
+      layer.msg('复制成功',{icon:1});
+    });
+   }else{
+    layui.use(['layer', 'form'], function(){
+      var layer = layui.layer;
+      layer.msg('复制失败',{icon:2});
+    });
+   }
+  })
+})
+
+
+function copyToClipboard(elem) {
+    // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+      // can just use the original source element for the selection and copy
+      target = elem;
+      origSelectionStart = elem.selectionStart;
+      origSelectionEnd = elem.selectionEnd;
+    } else {
+      // must use a temporary form element for the selection and copy
+      target = document.getElementById(targetId);
+      if (!target) {
+        var target = document.createElement("textarea");
+        target.style.position = "absolute";
+        target.style.left = "-9999px";
+        target.style.top = "0";
+        target.id = targetId;
+        document.body.appendChild(target);
+      }
+      target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+    // copy the selection
+    var succeed;
+    try {
+      succeed = document.execCommand("copy");
+    } catch(e) {
+      succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+      currentFocus.focus();
+    }
+    if (isInput) {
+      // restore prior selection
+      elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+      // clear temporary content
+      target.textContent = "";
+    }
+    return succeed;
+}
+</script>
+</html>

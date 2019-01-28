@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改代理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/bootstrap/css/bootstrap.min.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+    <link rel="stylesheet" href="__LAYUI__/base.css">
+    <style type="text/css">
+        .layui-form-label {
+            width: 150px!important;
+        }
+        .layui-form-item .layui-input-block{
+            margin-left: 190px!important;
+        }
+        .rs1 input{
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">代理用户编辑
+                    <a  style="float: right; margin-top:6px;" href="{:url('index')}" layadmin-event="back" class="layui-btn layui-btn-primary layui-btn-sm">返回</a>
+                </div>
+                <div class="layui-card-body" pad15>
+                    <form class="layui-form" action="{:url('saveUpdate',['id'=>$id,'act'=>'update'])}" method="post" id="form">
+                        <table class="layui-table">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">上级用户：</label>
+                                        <div class="layui-form-mid layui-word-aux" style="color:ff6600">
+                                            {$row2['guan1']}(大)---{$row2['guan']}(股)---{$row2['zong']}(总)
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">分配余额：</label>
+                                        <div class="layui-inline">
+                                            <input type="text" class="layui-input" name="kylllx2" value="{$sfsfsf}" readonly>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">账号：</label>
+                                        <div class="layui-form-mid">
+                                            {$row2['kauser']}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 姓名：</label>
+                                        <div  class="layui-inline" style="width:100px;">
+                                            <input type="text" class="layui-input" name="xm" value="{$row2['xm']}" lay-verify="required">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码：</label>
+                                        <div class="layui-inline">
+                                            <input type="password" name="kapassword" class="layui-input">
+                                        </div>
+                                        <span style="color:red;">(不修改请留空)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                       <label class="layui-form-label">  总信用额：</label>
+                                        <div  class="layui-inline" style="width:80px;">
+                                            <input type="text" class="layui-input" name="cs" value="{$row2['cs']}">
+                                        </div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        可用信用额度：
+                                        <div class="layui-inline">
+                                            <input type="text" name="kyx" value="{$maxnum}" class="layui-input" lay-verify="required" readonly>
+                                        </div>
+                                        <br>
+                                        <span style="color:red;">(如果修改总信用额比原来的值小那么下级所有用户总信用额将变成0)</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">走飞：</label>
+                                        <div class="layui-inline">
+                                            {if condition="$row2['pz'] eq 0"}
+                                            <input type="hidden" name="tv5" value="是">
+                                            <div class="layui-form-mid layui-word-aux">
+                                                <img name="tv5_b" src="__IMAGES__/icon_21x21_selectboxon.gif" class="cursor status1"><span>(充许走飞)</span>
+                                            </div>
+                                            {else/}
+                                            <input type="hidden" name="tv5" value="否">
+                                            <div class="layui-form-mid layui-word-aux">
+                                                <img name="tv5_b" src="__IMAGES__/icon_21x21_selectboxoff.gif" class="cursor status1"><span>(禁止走飞)</span>
+                                            </div>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">状态：</label>
+                                        <div class="layui-inline">
+                                            {if condition="$row2['stat'] eq 0"}
+                                            <input type="hidden" name="tv6" value="是">
+                                            <div class="layui-form-mid layui-word-aux">
+                                                <img name="tv6_b" src="__IMAGES__/icon_21x21_selectboxon.gif" class="cursor status"><span>(开启)</span>
+                                            </div>
+                                            {else/}
+                                            <input type="hidden" name="tv6" value="否">
+                                            <div class="layui-form-mid layui-word-aux">
+                                                <img name="tv6_b" src="__IMAGES__/icon_21x21_selectboxoff.gif" class="cursor status"><span>(禁止)</span>
+                                            </div>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">总代占成：</label>
+                                        <div class="layui-inline">
+                                            <select name="sj">
+                                                {for start="$istar" end="$iend+1" step="10"}
+                                                <option value="{$i}" {if condition="$row2['sj'] eq $i"}selected{/if}>{if condition="$i eq 0"}不占成{else/}{$i}%{/if}</option>
+                                                {/for}
+                                            </select>
+                                            <input name="sff" type="hidden" id="sff" value="{$iend}" />
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">代理占成：</label>
+                                        <div class="layui-inline">
+                                            <select name="sf">
+                                                {for start="$istar" end="$iend+1" step="10"}
+                                                <option value="{$i}" {if condition="$row2['sf'] eq $i"}selected{/if}>{if condition="$i eq 0"}不占成{else/}{$i}%{/if}</option>
+                                                {/for}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">登录时间：</label>
+                                        <div class="layui-form-mid">
+                                            {$row2['zlogin']}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">登录IP：</label>
+                                        <div class="layui-form-mid">
+                                            {$row2['zip']}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">注册时间：</label>
+                                        <div class="layui-form-mid">
+                                            {$row2['adddate']}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">登录次数：</label>
+                                        <div class="layui-form-mid">
+                                            {$row2['look']}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">自否允许特B：</label>
+                                        <div class="layui-inline">
+                                            <select name="tmb" id="">
+                                                <option value="0" {if condition="$row2['tmb'] eq 0"}selected{/if}>允许</option>
+                                                <option value="1" {if condition="$row2['tmb'] eq 1"}selected{/if}>不允许</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">会员人数：</label>
+                                        <div class="layui-inline">
+                                            <input type="text" name="rs" value="{$row2['rs']}" class="layui-input">
+                                        </div>
+                                        最多：<span style="color: red;">{$rs1}</span>
+                                        <input name="rs1" type="hidden" id="rs1" value="{$rs1}" />
+                                        <input name="rs2" type="hidden" id="rs2" value="{$rs2}" />
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>佣金%A</th>
+                                <th>佣金%B</th>
+                                <th>佣金%C</th>
+                                <th>佣金%D</th>
+                                <th>单注限额</th>
+                                <th>单项(号)限额</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if condition="$r2"}
+                            {foreach name="r2" id="r"}
+                            <tr>
+                                <td>
+                                    <input name="ygid[]" type="hidden" id="ygid[]" value="{$r['id']}" />
+                                    <input name="ds[]" type="hidden" id="ds[]" value={$r['ds']} />
+                                    {$r['ds']}
+                                </td>
+                                <td>
+                                    <input type="text" class="layui-input" class="m" name="m[]" value="{$r['yg']}" realval="{if condition="$row2['abcd'] eq 'A'"}{$r['row']['yg']}{elseif $row2['abcd'] eq 'B'/}{$r['row']['ygb']}{elseif $row2['abcd'] eq 'C'/}{$r['row']['ygc']}{elseif $row2['abcd'] eq 'D'/}{$r['row']['ygd']}{/if}">
+                                </td>
+                                <td>
+                                    <input type="text" class="layui-input" class="ygb" name="ygb[]" value="{$r['ygb']}" realval="{$r['row']['ygb']}">
+                                </td>
+                                <td>
+                                    <input type="text" class="layui-input" class="ygc" name="ygc[]" value="{$r['ygc']}" realval="{$r['row']['ygc']}">
+                                </td>
+                                <td>
+                                    <input type="text" class="layui-input" class="ygd" name="ygd[]" value="{$r['ygd']}" realval="{$r['row']['ygd']}">
+                                </td>
+                                <td>
+                                    <input type="text" class="layui-input" class="mm" name="mm[]" value="{$r['xx']}" realval="{$r['row']['xx']}" lay-verify="number">
+                                </td>
+                                <td>
+                                    <input type="text" class="layui-input" class="mmm" name="mmm[]" value="{$r['xxx']}" realval="{$r['row']['xxx']}">
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {else/}
+                            <tr><td colspan="4">暂无数据</td></tr>
+                            {/if}
+                            </tbody>
+                        </table>
+
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">保存代理</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="__LAYUI__/layui.js"></script>
+<style>
+    .layui-text em, .layui-word-aux{
+        color: #000000!important;
+    }
+    .layui-form-item .layui-input-inline{
+        margin-left: 40px;
+    }
+</style>
+<script>
+    $(function(){
+        //加载layui
+        layui.use(['form','table'],function(){
+            var form=layui.form;
+            form.on('select(temp)', function(data){
+                if(data.value==0 ||data.value==undefined){
+                    alert('请选择上级用户');
+                }else{
+                    location.href="{:url('addmem')}?id="+data.value;
+                }
+            });
+        })
+        $('#form').submit(function(){
+            //数据验证
+            if($(['name=xm']).val()==''){
+                layer.msg('姓名不能为空',{icon:2});
+                return false;
+            }
+            if(parseFloat($('[name=kyx]').val() > {$maxnum})){
+                layer.msg('对不起,上级总信用额度最高可使用{$maxnum}',{icon:2});
+                return false;
+            }
+            if(!layer.confirm("确认提交？")){
+                return false;
+            }
+            return true;
+        });
+
+        //数据验证
+        $('.m,.ygb,.ygc,.ygd,.mm,.mmm').blur(function () {
+            if($(this).val()==''){$(this).val(0)}
+            if(parseFloat($(this).val())>parseFloat($(this).attr('realval'))){
+                layer.msg('不能高于上级的'+parseFloat($(this).attr('realval'))+'值');
+            }
+        })
+
+        //走飞点击
+        $('.status1').click(function(){
+            var value=$('[name=tv5]').val();
+            if(value=='是'){
+                $('[name=tv5]').val('否');
+                $(this).attr('src','__IMAGES__/icon_21x21_selectboxoff.gif');
+                $(this).next().html('(禁止走飞)');
+            }
+            if(value=='否'){
+                $('[name=tv5]').val('是');
+                $(this).attr('src','__IMAGES__/icon_21x21_selectboxon.gif');
+                $(this).next().html('(充许走飞)');
+            }
+        });
+
+        //状态点击
+        $('.status').click(function(){
+            var value=$('[name=tv6]').val();
+            if(value=='是'){
+                $('[name=tv6]').val('否');
+                $(this).attr('src','__IMAGES__/icon_21x21_selectboxoff.gif');
+                $(this).next().html('(禁止)');
+            }
+            if(value=='否'){
+                $('[name=tv6]').val('是');
+                $(this).attr('src','__IMAGES__/icon_21x21_selectboxon.gif');
+                $(this).next().html('(开启)');
+            }
+        });
+    });
+</script>

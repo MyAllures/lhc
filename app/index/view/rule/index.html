@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+    <script src="__LAYUI__/vue.js"></script>
+    <link rel="stylesheet" href="__IMAGES__/xp.css">
+    <style type="text/css">
+        <!--
+        .STYLE2 {color: #FF0000}
+        .id30{ width:100%; height:160px; overflow: hidden; display:block;}
+        -->
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">规则说明</div>
+                <div class="layui-card-body" pad15 bordercolor="cccccc" bgcolor="#FFFFFF">
+                    {$rule['a1']}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="__LAYUI__/layui.js"></script>
+<link rel="stylesheet" href="__LAYUI__/base.css">
+<script>
+    //layui
+    layui.use('form', function(){
+        var form = layui.form;
+        form.render();
+    });
+
+</script>

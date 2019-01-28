@@ -1,0 +1,141 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.toolbar{margin-bottom: 10px;}
+input,dl{font-size: 14px;}
+.layui-input{height: 30px;}
+.layui-input{width: 70px;}
+.btn-add{
+	margin-right: -5px;
+}
+.btn-minus{
+	margin-left: -6px;
+}
+.btn-add label,.btn-minus label{
+	width: 110px;
+	padding: 6px 10px;
+	height: 38px;
+	line-height: 20px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 2px 0 0 2px;
+	text-align: center;
+	background-color: #FBFBFB;
+	overflow: hidden;
+	box-sizing: border-box;
+	border-color: #e6e6e6;
+	cursor: pointer;
+}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-tab layui-tab-brief layadmin-latestData">
+			<ul class="layui-tab-title">
+				<li onclick="location.href='/admin/rake/tm.html'">特码</li>
+				<li onclick="location.href='/admin/rake/ztm.html'">正特</li>
+				<li onclick="location.href='/admin/rake/zm.html'">正码</li>
+				<li onclick="location.href='/admin/rake/zm6.html'">正码1-6</li>
+				<li onclick="location.href='/admin/rake/gg.html'">过关</li>
+				<li onclick="location.href='/admin/rake/lm.html'">连码</li>
+				<li onclick="location.href='/admin/rake/bb.html'">半波</li>
+				<li onclick="location.href='/admin/rake/bbb.html'">半半波</li>
+				<li onclick="location.href='/admin/rake/zxsb.html'">正肖/七色波</li>
+				<li class="layui-this">五行</li>
+				<li onclick="location.href='/admin/rake/ts.html'">头尾数</li>
+				<li onclick="location.href='/admin/rake/ztws.html'">一肖/尾数</li>
+				<li onclick="location.href='/admin/rake/sx.html'">特肖合肖</li>
+				<li onclick="location.href='/admin/rake/sxt.html'">生肖连</li>
+				<li onclick="location.href='/admin/rake/wsl.html'">尾数连</li>
+				<li onclick="location.href='/admin/rake/wbz.html'">不中</li>
+				<li onclick="location.href='/admin/rake/syz.html'">中一</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+<!-- 					<div class="layui-tab">
+					  	<ul class="layui-tab-title">
+						    <li class="layui-this">特A</li>
+						    <li>特B</li>
+						    <li>特C</li>
+						    <li>特D</li>
+					 	</ul>
+					  <div class="layui-tab-content">
+					    <div class="layui-tab-item layui-show">内容1</div>
+					    <div class="layui-tab-item">内容2</div>
+					    <div class="layui-tab-item">内容3</div>
+					    <div class="layui-tab-item">内容4</div>
+					    <div class="layui-tab-item">内容5</div>
+					  </div>
+					</div> -->
+
+					<div class="layui-row layui-form">
+						<form class=" layui-form">
+						<input type="hidden" name="dvalue" value="0.01">
+						<input type="hidden" name="class2" value="{$class2|default=''}">
+						<div class="layui-col-md12">
+							<table class="layui-table">
+								<thead>
+									<tr>
+										<th>类型</th>
+										<th>号码</th>
+										<th>赔率/封号</th>
+										<th>赔率</th>
+										<th>下注总额</th>
+									</tr> 
+								</thead>
+								<tbody>
+									{for start="0" end="5" name='k'}
+									<tr>
+										<td>{$list[$k]['class3']}</td>
+										<td>
+											{php}$numbers = kasxnumberbysx($list[$k]['class3']);{/php}
+											{php}$numbers = explode(',', $numbers);{/php}
+											{volist name="numbers" id="number"}
+											<img src="__STATIC__/images/num/num{$number}.gif">
+											{/volist}
+										</td>
+										<td style="line-height: 26px;">
+											<input type="hidden" name="Num[{$k}][class3]" value="{$list[$k]['class3']}">
+											<div class="layui-inline btn-add"><label>+</label></div>
+											<div class="layui-inline">
+											<input type="text" name="Num[{$k}][rate]" value="{$list[$k]['rate']}" class="layui-input input" style="float:left;">
+											</div>
+											<div class="layui-inline btn-minus"><label>-</label></div>
+											<input type="checkbox" name="Num[{$k}][locked]" value="1" lay-skin="primary" style="float: right;" {if condition="$list[$k]['locked'] eq 1"}checked{/if}>
+										</td>
+										<td>{$list[$k]['rate']}</td>
+										<td>{$sumData[$k]['sum']}</td>
+									</tr>
+									{/for}
+								</tbody>
+							</table>
+						</div>
+						<div class="layui-form-item layui-layout-admin">
+							<div class="layui-input-block">
+								<div class="layui-footer" style="left: 0;">
+									<a class="layui-btn btn-all-add">增加</a>
+									<a class="layui-btn btn-all-minus">减少</a>
+									<button class="layui-btn layui-btn-normal" lay-submit lay-filter="LAY-agent-add">立即提交</button>
+									<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'rake']);
+</script>
+{/block}

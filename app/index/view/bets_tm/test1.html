@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <script src="__LAYUI__/layui.js"></script>
+</head>
+<body>
+    <form name="" action="{:url('bets_tm')}" target="_self">
+        <p><input type="text"></p>
+        <p><button>提交</button></p>
+    </form>
+<script>
+    alert(123456);
+    layui.use(['layer'],function(){
+
+        var layer=layui.layer;
+
+        console.log(layer);
+        layer.open({
+            title:'1',
+            content:'2',
+
+        });
+        layer.alert('来');
+        layer.open({
+            title:'测试1',
+            content:'内容1',
+        });
+    })
+</script>
+</body>
+</html>

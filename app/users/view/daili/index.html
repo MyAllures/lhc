@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>代理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/bootstrap/css/bootstrap.min.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <form action="" class="layui-form">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        {if condition="$users['lx']==1 || $users['lx'] eq 4"}
+                        总代
+                        <div class="layui-inline" style="width: 110px; margin-left: 5px;">
+                            <select name="ids1" class="zaselect_ste" lay-filter="sel">
+                                <option value="0">全部</option>
+                                {if condition="!empty($daili2)"}
+                                {foreach name="daili2" id="d"}
+                                <option value="{$d['id']}" {if condition="$d['id'] eq $zid"}selected{/if}>{$d['kauser']}</option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                        {else/}
+                        代理管理
+                        {/if}
+                        <div class="layui-btn-group" style="float:right;">
+                            <a class="layui-btn layui-btn-primary layui-btn-sm" href="{:url('index',['size'=>'all'])}" ><i class="layui-icon-group"></i>所有代理</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-sm" href="{:url('index',['stat'=>0])}">开启</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-sm" href="{:url('index',['stat'=>1])}">禁止</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-sm" href="{:url('adddaili')}">添加代理</a>
+                            <a class="layui-btn layui-btn-primary layui-btn-sm" href="javascript:location.reload();">刷新</a>
+                        </div>
+                    </div>
+                    <div class="layui-card-body" pad15>
+                        <table class="layui-table" lay-even style="overflow:scroll;!important;">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>账号</th>
+                                <th>姓名</th>
+                                <th>信用额度/分配余额</th>
+                                <th>总代</th>
+                                <th>股东</th>
+                                <th>会员数量</th>
+                                <th>代%</th>
+                                <th>总%</th>
+                                {if condition="$users['lx'] eq 1"} <th>股%</th>{/if}
+                                <th>走飞</th>
+                                <th>状况</th>
+                                <th>注册时间</th>
+                                <th>登录次数</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if condition="$result neq null"}
+                            {foreach name="result" id="r"}
+                            <tr>
+                                <td>{$r['id']}</td>
+                                <td>{$r['kauser']}</td>
+                                <td>{$r['xm']}</td>
+                                <td>{$r['cs']}/{$r['cs_used']}</td>
+                                <td>{$r['zong']}</td>
+                                <td>{$r['guan']}</td>
+                                <td>{$r['mem_sum']}</td>
+                                <td>{$r['sf']}%</td>
+                                <td>{$r['sj']}%</td>
+                                {if condition="$users['lx'] eq 1"}<td>{$r['gufen']}%</td>{/if}
+                                <td>{if condition="$r['pz'] eq 0"}<img src="__IMAGES__/icon_21x21_selectboxon.gif">{else/}<img src="__IMAGES__/icon_21x21_selectboxoff.gif">{/if}</td>
+                                <td>{if condition="$r['stat'] eq 0"}<img src="__IMAGES__/icon_21x21_selectboxon.gif">{else/}<img src="__IMAGES__/icon_21x21_selectboxoff.gif">{/if}</td>
+                                <td>{$r['slogin']}</td>
+                                <td>{$r['look']}</td>
+                                <td>
+                                    <a class="layui-btn layui-btn-xs" href="{:url('editdaili',['id'=>$r['id']])}">编辑</a>
+                                    <a class="layui-btn layui-btn-danger layui-btn-xs" href="{:url('mem/addMem',['id'=>$r['id']])}">添加会员</a>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {else/}
+                            <tr>
+                                <td colspan="{if condition="$users['lx'] eq 1"}15{else/}14{/if}" align="center">暂无数据</td>
+                            </tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                        <div id="pages">{$page}</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="__LAYUI__/layui.js"></script>
+<link rel="stylesheet" href="__LAYUI__/base.css">
+<style>
+    .layui-table-body{
+        overflow: auto;!important;
+    }
+</style>
+<script>
+    layui.use(['table','form'],function(){
+        var form=layui.form;
+        form.on('select(sel)',function (data) {
+            location.href="{:url('index')}?id="+data.value;
+        })
+    });
+
+    function DelParter(id){
+        var index = layer.confirm(
+            '确定要删除?',
+            {
+                btn : ['确定','取消']
+            },
+            function(){
+                $.post(
+                    "{:url('')}",
+                    {
+                        id : id
+                    },
+                    function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg,{icon : 1,time : 2000},function(){
+                                pageReload();
+                            });
+                        }
+                        else{
+                            layer.msg(data.msg,{icon : 2});
+                        }
+                    },
+                    "json"
+                );
+            }
+        );
+    }
+
+    function Edit(id){
+        layer.open({
+            type: 2,
+            title: '编辑合作伙伴',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['600px', '500px'],
+            content: '{:url(\'\')}?id='+id
+        });
+    }
+
+    function Add(){
+        layer.open({
+            type: 2,
+            title: '新增合作伙伴',
+            shadeClose: true,
+            shade: false,
+            maxmin: true,
+            area: ['600px', '500px'],
+            closeBtn: 1,
+            content: '{:url(\'\')}'
+            /*
+            end: function (){
+                location.reload();
+            }
+            */
+        });
+    }
+
+    function pageReload(){
+        table.reload('tableShow', {
+            where : queryData
+        });
+    }
+</script>

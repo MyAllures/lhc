@@ -1,0 +1,110 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+.layui-input{height: 30px;width: 70px}
+.layui-quote-nm{
+	margin-bottom: 0px;
+	padding: 0px;
+	border-width:0px
+}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">
+			{$agent['xm']}[{$agent['kauser']}]
+		</div>
+		<div class="layui-card-body layui-form"> 
+			<input type="hidden" name="id" value="{$agent.id}">
+			<blockquote class="layui-elem-quote layui-quote-nm">
+				<div class="layui-inline">
+				<label class="layui-form-label" style="padding: 5px 15px;">退水</label>
+				</div>
+				<div class="layui-inline">
+				      <input type="text" name="tnum" value="0.25" autocomplete="off" class="layui-input">
+				</div>
+				<div class="layui-inline">
+					<select name="tpan">
+					  	<option value="All">全部</option>
+					  	<option value="m[]">A盘</option>
+					  	<option value="ygb[]">B盘</option>
+					  	<option value="ygc[]">C盘</option>
+					  	<option value="ygd[]">D盘</option>
+					</select>     
+				</div>
+				<div class="layui-inline">
+					<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius btn-height">调高</a>
+					<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius btn-low">调低</a>
+					<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius btn-zero" >归零</a>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label" style="padding: 5px 15px;">限额</label>
+				</div>
+				<div class="layui-inline">
+				      <input type="text" name="xrnum" value="" autocomplete="off" class="layui-input">
+				</div>
+				<div class="layui-inline">
+					<a href="javascript:;" class="layui-btn  layui-btn-normal layui-btn-sm layui-btn-radius btn-zhu-limit">单注限额</a>
+					<a href="javascript:;" class="layui-btn  layui-btn-primary layui-btn-sm layui-btn-radius btn-hao-limit">单项(号)限额</a>
+				</div>
+			</blockquote>
+			<table class="layui-table">
+				<colgroup>
+					<col width="50">
+				</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox" name="layTableCheckbox" lay-skin="primary" lay-filter="layTableAllChoose"></th>
+						<th>类型</th>
+						<th>A盘</th>
+						<th>B盘</th>
+						<th>C盘</th>
+						<th>D盘</th>
+						<th>单注限额</th>
+						<th>单项(号)限额</th>
+	<!-- 		          	<th>最低下注</th>
+			          	<th>降赔率</th>
+			          	<th>最大赔差</th> -->
+			          </tr> 
+			      </thead>
+			      <tbody>
+			      	{volist name="list" id="item"}
+			      	<tr>
+			      		<input name="ds[]" type="hidden" id="ds[]" value="{$item['ds']}" />
+			      		<input name="style[]" type="hidden" id="style[]" value="{$item['style']}" />
+			      		<td><input type="checkbox" name="layTableCheckbox" lay-skin="primary" lay-filter="layTableChoose"></td>
+			      		<td>{$item['ds']}</td>
+			      		<td><input type="text" name="m[]" value="{$item['yg']}" class="layui-input"></td>
+			      		<td><input type="text" name="ygb[]" value="{$item['ygb']}" class="layui-input"></td>
+			      		<td><input type="text" name="ygc[]" value="{$item['ygc']}" class="layui-input"></td>
+			      		<td><input type="text" name="ygd[]" value="{$item['ygd']}" class="layui-input"></td>
+			      		<td><input type="text" name="mm[]" value="{$item['xx']}" class="layui-input"></td>
+			      		<td><input type="text" name="mmm[]" value="{$item['xxx']}" class="layui-input"></td>
+			      	</tr>
+			      	{/volist}
+			      </tbody>
+			  </table>
+			  	<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-agent-detail">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/block}
+	{block name="script"}
+	<script type="text/javascript">
+		layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'agent']);
+</script>
+{/block}

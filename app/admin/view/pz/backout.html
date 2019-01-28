@@ -1,0 +1,66 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">
+			{$kithe['nn']}期 出货表
+		</div>
+		<div class="layui-card-body">
+			<form class="layui-form">
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>号码</th>
+						<th>赔率</th>
+						<th>退水(%)</th>
+						<th>金额</th>
+						<th>可外调实货</th>
+					</tr> 
+				</thead>
+				<tbody>
+					{volist name="data" id="item"}
+					<tr>
+						<td>
+							<img src="__STATIC__/images/num/num{$item['class3']}.gif">
+						</td>
+						<td>
+							<input type="hidden" name="tan[{$key}][class1]" value="{$item['class1']}">
+							<input type="hidden" name="tan[{$key}][class2]" value="{$item['class2']}">
+							<input type="hidden" name="tan[{$key}][class3]" value="{$item['class3']}">
+							<input type="text" name="tan[{$key}][rate]" value="{$item['rate']}" class="layui-input">
+						</td>
+						<td><input type="text" name="tan[{$key}][ds]" value="{$item['ds']}" class="layui-input"></td>
+						<td><input type="text" name="tan[{$key}][money]" value="" class="layui-input"></td>
+						<td>{$item['sum_mzc']}</td>
+					</tr>
+					{/volist}
+				</tbody>
+			</table>
+			<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-backout-add">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'pz']);
+</script>
+{/block}

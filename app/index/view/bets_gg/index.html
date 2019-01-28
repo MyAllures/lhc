@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过关</title>
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <script src="__LAYUI__/layui.js"></script>
+    <style>
+        .layui-table th{
+            text-align: center;
+        }
+        .layui-table td{
+            font-size: 16px;
+        }
+        .layui-form-radio{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-card">
+                {include file="public/top"/}
+                <div class="layui-card-header">
+                    <h2 style="color:red;" class="layui-inline">过关</h2>
+                    <span style="padding-left: 80px;">距离封盘时间：<b class="time" style="color: red;font-weight: normal;"></b></span>
+                </div>
+                <div class="layui-card-body">
+                    <form action="{:url('saveGg')}" method="post" class="layui-form">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th colspan="5">过关</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td rowspan="2">正码一</td>
+                                <td><input type="radio" name="game1" value="1" {$result[0]['locked']} title="单"> <span style="color:blue;">{$result[0]['rate']}</span></td>
+                                <td><input type="radio" name="game1" value="2" {$result[1]['locked']} title="双"> <span style="color:blue;">{$result[1]['rate']}</span></td>
+                                <td><input type="radio" name="game2" value="3" {$result[2]['locked']} title="大"> <span style="color:blue;">{$result[2]['rate']}</span></td>
+                                <td><input type="radio" name="game2" value="4" {$result[3]['locked']} title="小"> <span style="color:blue;">{$result[3]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="game3" value="5" {$result[4]['locked']} title="红波"> <span style="color:blue;">{$result[4]['rate']}</span></td>
+                                <td><input type="radio" name="game3" value="6" {$result[5]['locked']} title="绿波"> <span style="color:blue;">{$result[5]['rate']}</span></td>
+                                <td><input type="radio" name="game3" value="7" {$result[6]['locked']} title="蓝波"> <span style="color:blue;">{$result[6]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">正码二</td>
+                                <td><input type="radio" name="game4" value="8" {$result[7]['locked']} title="单"> <span style="color:blue;">{$result[7]['rate']}</span></td>
+                                <td><input type="radio" name="game4" value="9" {$result[8]['locked']} title="双"> <span style="color:blue;">{$result[8]['rate']}</span></td>
+                                <td><input type="radio" name="game5" value="10" {$result[9]['locked']} title="大"> <span style="color:blue;">{$result[9]['rate']}</span></td>
+                                <td><input type="radio" name="game5" value="11" {$result[10]['locked']} title="小"> <span style="color:blue;">{$result[10]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="game6" value="12" {$result[11]['locked']} title="红波"> <span style="color:blue;">{$result[11]['rate']}</span></td>
+                                <td><input type="radio" name="game6" value="13" {$result[12]['locked']} title="绿波"> <span style="color:blue;">{$result[12]['rate']}</span></td>
+                                <td><input type="radio" name="game6" value="14" {$result[13]['locked']} title="蓝波"> <span style="color:blue;">{$result[13]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">正码三</td>
+                                <td><input type="radio" name="game7" value="15" {$result[14]['locked']} title="单"> <span style="color:blue;">{$result[14]['rate']}</span></td>
+                                <td><input type="radio" name="game7" value="16" {$result[15]['locked']} title="双"> <span style="color:blue;">{$result[15]['rate']}</span></td>
+                                <td><input type="radio" name="game8" value="17" {$result[16]['locked']} title="大"> <span style="color:blue;">{$result[16]['rate']}</span></td>
+                                <td><input type="radio" name="game8" value="18" {$result[17]['locked']} title="小"> <span style="color:blue;">{$result[17]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="game9" value="19" {$result[18]['locked']} title="红波"> <span style="color:blue;">{$result[18]['rate']}</span></td>
+                                <td><input type="radio" name="game9" value="20" {$result[19]['locked']} title="绿波"> <span style="color:blue;">{$result[19]['rate']}</span></td>
+                                <td><input type="radio" name="game9" value="21" {$result[20]['locked']} title="蓝波"> <span style="color:blue;">{$result[20]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">正码四</td>
+                                <td><input type="radio" name="game10" value="22" {$result[21]['locked']} title="单"> <span style="color:blue;">{$result[21]['rate']}</span></td>
+                                <td><input type="radio" name="game10" value="23" {$result[22]['locked']} title="双"> <span style="color:blue;">{$result[22]['rate']}</span></td>
+                                <td><input type="radio" name="game11" value="24" {$result[23]['locked']} title="大"> <span style="color:blue;">{$result[23]['rate']}</span></td>
+                                <td><input type="radio" name="game11" value="25" {$result[24]['locked']} title="小"> <span style="color:blue;">{$result[24]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="game12" value="26" {$result[25]['locked']} title="红波"> <span style="color:blue;">{$result[25]['rate']}</span></td>
+                                <td><input type="radio" name="game12" value="27" {$result[26]['locked']} title="绿波"> <span style="color:blue;">{$result[26]['rate']}</span></td>
+                                <td><input type="radio" name="game12" value="28" {$result[27]['locked']} title="蓝波"> <span style="color:blue;">{$result[27]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">正码五</td>
+                                <td><input type="radio" name="game13" value="29" {$result[28]['locked']} title="单"> <span style="color:blue;">{$result[28]['rate']}</span></td>
+                                <td><input type="radio" name="game13" value="30" {$result[29]['locked']} title="双"> <span style="color:blue;">{$result[29]['rate']}</span></td>
+                                <td><input type="radio" name="game14" value="31" {$result[30]['locked']} title="大"> <span style="color:blue;">{$result[30]['rate']}</span></td>
+                                <td><input type="radio" name="game14" value="32" {$result[31]['locked']} title="小"> <span style="color:blue;">{$result[31]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="game15" value="33" {$result[32]['locked']} title="红波"> <span style="color:blue;">{$result[32]['rate']}</span></td>
+                                <td><input type="radio" name="game15" value="34" {$result[33]['locked']} title="绿波"> <span style="color:blue;">{$result[33]['rate']}</span></td>
+                                <td><input type="radio" name="game15" value="35" {$result[34]['locked']} title="蓝波"> <span style="color:blue;">{$result[34]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">正码六</td>
+                                <td><input type="radio" name="game16" value="36" {$result[35]['locked']} title="单"> <span style="color:blue;">{$result[35]['rate']}</span></td>
+                                <td><input type="radio" name="game16" value="37" {$result[36]['locked']} title="双"> <span style="color:blue;">{$result[36]['rate']}</span></td>
+                                <td><input type="radio" name="game17" value="38" {$result[37]['locked']} title="大"> <span style="color:blue;">{$result[37]['rate']}</span></td>
+                                <td><input type="radio" name="game17" value="39" {$result[38]['locked']} title="小"> <span style="color:blue;">{$result[38]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="game18" value="40" {$result[39]['locked']} title="红波"> <span style="color:blue;">{$result[39]['rate']}</span></td>
+                                <td><input type="radio" name="game18" value="41" {$result[40]['locked']} title="绿波"> <span style="color:blue;">{$result[40]['rate']}</span></td>
+                                <td><input type="radio" name="game18" value="42" {$result[41]['locked']} title="蓝波"> <span style="color:blue;">{$result[41]['rate']}</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" align="center">
+                                    <input type="hidden" name="from_url" value="{:url('')}">
+                                    <input type="submit" class="layui-btn layui-btn-sm" value="提交">
+                                    <input type="reset" class="layui-btn layui-btn-sm layui-btn-primary" value="重设">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    layui.use(['layer','form'],function () {
+        var layer=layui.layer;
+        $('form').submit(function () {
+            var size=$('[type=radio]:checked').size();
+            if(size==0){
+                layer.msg('请先下注!',{icon:2});
+                return false;
+            }
+            if(size==1){
+                layer.msg('请选择二组以上玩法，若只要单一下注请前往正特投注!',{icon:2});
+                return false;
+            }
+            if(size>9){
+                layer.msg('超出下注范围!',{icon:2});
+                return false;
+            }
+
+            layer.open({
+                type: 2,
+                title: '确认注单',
+                shadeClose: false,
+                shade: 0.3,
+                maxmin: true,
+                area: ['700px', '500px'],
+                content: '{:url("saveGg")}?'+$('form').serialize()
+            });
+            return false;
+        });
+    });
+    
+    //计算倒计时
+    var time=parseInt({:strtotime(getKithe(14))-time()});
+    countDown(time);
+    //带天数的倒计时
+    function countDown(times){
+        var timer=null;
+        timer=setInterval(function(){
+            var day=0,
+                hour=0,
+                minute=0,
+                second=0;//时间默认值
+            if(times > 0){
+                day = Math.floor(times / (60 * 60 * 24));
+                hour = Math.floor(times / (60 * 60)) - (day * 24);
+                minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (day <= 9) day = '0' + day;
+            if (hour <= 9) hour = '0' + hour;
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            //console.log();
+            $('.time').html(day+"天"+hour+"小时"+minute+"分钟&nbsp;&nbsp;"+second+"秒");
+            times--;
+        },1000);
+        if(times<=0){
+            clearInterval(timer);
+        }
+    }
+</script>

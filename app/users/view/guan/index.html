@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改子账户</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/bootstrap/css/bootstrap.min.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <form class="layui-form" id="form1" method="post" enctype="multipart/form-data">
+                        <table class="layui-table">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">账号：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['kauser']}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="password" class="layui-input" name="kapassword"  placeholder="请输入密码">
+                                        </div>
+                                        <div class="layui-form-mid layui-word-aux" style="color:red!important;"> (不修改请留空)</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">姓名：</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" class="layui-input" name="xm" value="{$guan['xm']}" placeholder="请输入姓名" lay-verify="required">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 分配余额：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$sum_num}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 总信用额：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['cs']}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 走飞：</label>
+                                        <div class="layui-form-mid layui-word-aux">{if condition="$guan['pz'] eq 0"}<img src="__IMAGES__/icon_21x21_selectboxon.gif"/> {else/}<img src="__IMAGES__/icon_21x21_selectboxoff.gif"/>{/if}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 状态：</label>
+                                        <div class="layui-form-mid layui-word-aux">{if condition="$guan['stat'] eq 0"}<img src="__IMAGES__/icon_21x21_selectboxon.gif"/> {else/}<img src="__IMAGES__/icon_21x21_selectboxoff.gif"/>{/if}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 占成：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['sf']}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 登录时间：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['zlogin']}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 登录IP：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['zip']}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 注册时间：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['slogin']}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"> 登录次数：</label>
+                                        <div class="layui-form-mid layui-word-aux">{$guan['look']}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <div class="layui-form-item" style="margin-top: 10px;">
+                                        <div class="layui-input-block">
+                                            <input type="hidden" value="{$guan['id']}" name="id" />
+                                            <button type="submit" lay-submit lay-filter="save" class="layui-btn">修改资料</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="layui-table layui-fluid">
+                            <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>佣金%A</th>
+                                <th>佣金%B</th>
+                                <th>佣金%C</th>
+                                <th>佣金%D</th>
+                                <th>单注限额</th>
+                                <th>单项(号)限额</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {if condition="!empty($guan['quota'])"}
+                            {foreach name="guan['quota']" id="q"}
+                            <tr>
+                                <td>{$q['ds']}</td>
+                                <td>{$q['yg']}</td>
+                                <td>{$q['ygb']}</td>
+                                <td>{$q['ygc']}</td>
+                                <td>{$q['ygd']}</td>
+                                <td>{$q['xx']}</td>
+                                <td>{$q['xxx']}</td>
+                            </tr>
+                            {/foreach}
+                            <tr><td colspan="7" align="center"><span style="color:red;">(如果修改佣金,单注限额,单项(号)限额比原来的值小那么下级所有用户相应的将变成0)</span></td></tr>
+                            {else/}
+                            <tr><td colspan="7" align="center">暂无数据</td></tr>
+                            {/if}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__LAYUI__/layui.js"></script>
+<link rel="stylesheet" href="__LAYUI__/base.css">
+<script>
+    layui.use(['form','table'],function(){
+        var form = layui.form;
+        var layer=layui.layer;
+        form.on('submit(save)', function (data){
+            var params = data.field;
+            $.post(
+                "{:url('saveGuan')}",
+                params,
+                function(response){
+                    layer.msg(response.msg,{icon:6});
+                },
+                "json"
+            );
+            return false;
+        });
+        form.rende
+        form.render();
+    });
+
+</script>
+</body>
+</html>

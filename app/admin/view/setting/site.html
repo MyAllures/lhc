@@ -1,0 +1,60 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+#sitelogo{   border: 1px solid #D2D2D2;width: 128px;height: 128px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">站点设置</div>
+		<div class="layui-card-body">
+			<form class="layui-form" lay-filter="LAY-site-edit">
+				<input type="hidden" name="key" value="site">
+				<div class="layui-form-item">
+					<label class="layui-form-label">站点简称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="site[sname]" value="{$site.sname|default=''}"  lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">站点名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="site[cname]" value="{$site.cname}"  lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">版权信息</label>
+					<div class="layui-input-block">
+						<input type="text" name="site[copyright]" value="{$site.copyright}"  autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">系统状态</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="site[open]" lay-skin="switch" lay-text="开启|维护" {if condition="$site['open'] eq 0"}checked{/if}>
+					</div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-site-edit">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180604'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'setting']);
+</script>
+{/block}

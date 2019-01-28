@@ -1,0 +1,57 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	input,dl{font-size: 14px;}
+	.toolbar{margin-bottom: 10px;}
+	.layui-input{height: 30px;margin-top: -10px;}
+	.layui-form-select dl{top: 32px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">
+			文章列表
+		</div>
+		<div class="layui-card-body">
+			<div id="article-table" lay-filter="article"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="topToolbar">
+  	<div class="layui-btn-container">
+	    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="add">添加</button>
+	    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="publish">发布</button>
+	    <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="draft">草稿</button>
+	    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="delete">删除</button>
+	    <div class="layui-inline" style="width: 200px;">
+	    <select lay-filter="object">
+	    	<option value="">对象</option>
+	        <option value="0" {{# if(d.where.object == 0){ }}selected{{# } }}>全部</option>
+	        <option value="1"  {{# if(d.where.object == 1){ }}selected{{# } }}>商家</option>
+	        <option value="2"  {{# if(d.where.object == 2){ }}selected{{# } }}>会员</option>
+	    </select>
+	    </div>
+  	</div>
+</script>
+
+<script type="text/html" id="switchState">
+	<input type="checkbox" name="state" value="1" lay-skin="switch" lay-text="发布|草稿" lay-filter="state" data-id="{{ d.id }}" {{ d.state == 1 ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="rowToolbar">
+  	<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+  	<a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="delete">删除</a>
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180921002'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'article']);
+</script>
+{/block}

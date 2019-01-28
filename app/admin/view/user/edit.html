@@ -1,0 +1,137 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+.layui-form-item span{line-height: 38px;}
+.layui-inline{    border: 1px solid #ece7e7;
+	width: 200px;
+	height: 200px;
+}
+.layui-inline div{padding: 10px;text-align: center;}
+.layui-inline .image{width: 180px;height: 180px;}
+.layui-inline div img{width: 100%;height: 100%}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form">
+				<input type="hidden" name="id" value="{$user['id']}">
+				<div class="layui-form-item">
+					<label class="layui-form-label">真实姓名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="truename" value="{$user.truename}" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">重置密码</label>
+					<div class="layui-input-inline">
+						<input type="text" name="password" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">为空不重置</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">身份证号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="idcard[no]" value="{$user['idcard']['no']|default=''}" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-inline">
+						<input type="radio" name="sex" value="1" title="男" {if condition="empty($user['sex']) || $user['sex'] eq 1"} checked {/if}>
+						<input type="radio" name="sex" value="2" title="女" {if condition="!empty($user['sex']) && $user['sex'] eq 2"} checked {/if}>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">出生日期</label>
+					<div class="layui-input-inline">
+						{if condition="empty($user['birthday'])"}
+						<input type="text" name="birthday" lay-verify="required" class="layui-input">
+						{else /}
+						<input type="text" name="birthday" value="{$user['birthday']|date='Y-m-d',###}" lay-verify="required" class="layui-input">
+						{/if}
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">旺旺号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="taobao" value="{$user.taobao}" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">淘气值</label>
+					<div class="layui-input-inline">
+						<input type="text" name="taoqi" value="{$user.taoqi}" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">订单编号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="order_no" value="{$user['order_no']|default=''}" lay-verify="required" placeholder="该旺旺名任意淘宝订单的后四位" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">信誉</label>
+					<div class="layui-input-inline">
+						<select name="score">
+							<option {if condition="empty($user['score']) || $user['score'] eq '3心'"} selected="" {/if}>3心</option>
+							<option {if condition="!empty($user['score']) && $user['score'] eq '4心'"} selected="" {/if}>4心</option>
+							<option {if condition="!empty($user['score']) && $user['score'] eq '5心'"} selected="" {/if}>5心</option>
+							<option {if condition="!empty($user['score']) && $user['score'] eq '1钻'"} selected="" {/if}>1钻</option>
+							<option {if condition="!empty($user['score']) && $user['score'] eq '2钻'"} selected="" {/if}>2钻</option>
+							<option {if condition="!empty($user['score']) && $user['score'] eq '3钻及以上'"} selected="" {/if}>3钻及以上</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<div class="layui-inline">
+							<div class="image">
+								<input type="hidden" name="idcard[positive]" value="{$user.idcard.positive|default=''}" id="level">
+								{if condition="empty($user['idcard']) || empty($user['idcard']['positive'])"}
+								<img src="__STATIC__/images/default_image.gif">
+								{else /}
+								<img src="{$user['idcard']['positive']}">
+								{/if}
+							</div>
+							<label>身份证正面</label>
+						</div>
+						<div class="layui-inline">
+							<div class="image">
+								<input type="hidden" name="idcard[opposite]" value="{$user.idcard.opposite|default=''}" id="opposite">
+								{if condition="empty($user['idcard']) || empty($user['idcard']['opposite'])"}
+								<img src="__STATIC__/images/default_image.gif">
+								{else /}
+								<img src="{$user['idcard']['opposite']}">
+								{/if}
+							</div>
+							<label>身份证反面</label>
+						</div>
+					</div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-user-edit">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180608'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'user']);
+</script>
+{/block}

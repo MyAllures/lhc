@@ -1,0 +1,47 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.toolbar{margin-bottom: 10px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">
+			分类设置{if condition="!empty($pnavi)"} > {$pnavi['cname']}{/if}
+			<a class="collapse-link" onclick="history.go(-1)">返回</a>
+		</div>
+		<div class="layui-card-body">
+			<input type="hidden" name="pid" value="{$pclass.id|default=0}">
+			<div class="toolbar">
+				 <a class="layui-btn layui-btn-primary" onclick="layui.article.addclass()">添加分类</a> 
+			</div>
+			<div id="class-table" lay-filter="class"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="switchState">
+  <input type="checkbox" name="state" value="1" lay-skin="switch" lay-text="正常|禁用" lay-filter="class-state" data-id="{{ d.id }}" {{ d.state == 1 ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="toolbar">
+	{{# if(d.subclasses.length > 0){ }}
+	<a class="layui-btn layui-btn-xs" lay-event="select">子菜单</a>
+	{{# }else{ }}
+	<a class="layui-btn layui-btn-xs" lay-event="add">添加</a>
+	{{# } }}
+  	<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+  	<a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="delete">删除</a>
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180606'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'article']);
+</script>
+{/block}

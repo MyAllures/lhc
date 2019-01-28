@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <script src="__LAYUI__/layui.js"></script>
+    <style>
+        .layui-table td, .layui-table th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="background-color: #fff;">
+<script>
+    function ChkSubmit(){
+        //设定『确定』键为反白
+        document.all.btnSubmit.disabled = true;
+        document.form1.submit();
+    }
+    //keypress 按下出发
+    function CheckKey(event){
+        // if(event.keyCode == 13) return true;
+        // if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode > 95 || event.keyCode < 106)){alert("下注金额仅能输入数字!!"); return false;}
+    }
+
+    //表单确认时触发
+    function SubChk(){
+        if(document.all.gold.value==''){
+            document.all.gold.focus();
+            alert("请输入下注金额!!");
+            return false;
+        }
+        if(isNaN(document.all.gold.value) == true){
+            document.all.gold.focus();
+            alert("下注金额仅能输入数字!!");
+            return false;
+        }
+        if(eval(document.all.gold.value) < {:getMemField('xy')}){
+            document.all.gold.focus();
+            alert("下注金额不可小於最低下注金额:{:getMemField('xy')}!!");
+            return false;
+        }
+        if(eval(document.all.gold.value) > {$xxx}){
+            document.all.gold.focus();
+            alert("对不起,本期有下注金额最高限制 : {$xxx}  !!");
+            return false;
+        }
+        if(eval(document.all.gold.value) > {$xx}){
+            document.all.gold.focus();
+            alert("下注金额不可大於单注限额:{$xx}!!");
+            return false;
+        }
+        if(({$sum}+eval(document.all.gold.value)) >{$xxx}){
+            document.all.gold.focus();
+            alert("本期累计下注共: {$sum}\n下注金额已超过单期限额!!");
+            return false;
+        }
+        if(eval(document.all.gold.value) > {:getMemField('ts')}){
+            document.all.gold.focus();
+            alert("下注金额不可大於信用额度:{:getMemField('ts')}!!");
+            return false;
+        }
+
+//if(!confirm("可蠃金额:"+Math.round(document.all.gold.value * document.all.ioradio.value / 1000 - document.all.gold.value)+"\n\n 是否确定下注?")){return false;}
+        document.all.btnCancel.disabled = true;
+        document.all.btnSubmit.disabled = true;
+        document.LAYOUTFORM.submit();
+    }
+
+    //keyUp 触发
+    function CountWinGold(){
+        if(document.all.gold.value==''){
+            document.all.gold.focus();
+            alert('未输入下注金额!!!');
+        }else{
+            //document.all.ioradio.value /1000  赔率  重新计算可赢的金额
+            document.all.pc.innerHTML=Math.round(document.all.gold.value * document.all.ioradio.value /1000 - document.all.gold.value);
+//document.all.pc1.innerHTML=Math.round(document.all.gold.value * document.all.ioradio1.value);
+            count_win=true;
+        }
+    }
+    function CountWinGold1(){
+        if(document.all.gold.value==''){
+            document.all.gold.focus();
+            alert('未输入下注金额!!!');
+        }else{
+//document.all.pc1.innerHTML=Math.round(document.all.gold.value * document.all.ioradio1.value);
+            count_win=true;
+        }
+    }
+</script>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <form action="{:url('savesx6')}" method="post" name="form1" id="form1" >
+                <input type="hidden" name="class2" value="{$class2}">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th colspan="2">确认注单</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>账号名称</td>
+                        <td>{$mem['kauser']}</td>
+                    </tr>
+                    <tr>
+                        <td>会员类型</td>
+                        <td>{$mem['abcd']}盘</td>
+                    </tr>
+                    <tr>
+                        <td>总信用额</td>
+                        <td>{$mem['cs']}元</td>
+                    </tr>
+                    <tr>
+                        <td>可用余额</td>
+                        <td>{$mem['ts']}元</td>
+                    </tr>
+                    <tr>
+                        <td>最低限额</td>
+                        <td>{$mem['xy']}元</td>
+                    </tr>
+                    <tr>
+                        <td>下注总额</td>
+                        <td>{$sum}元</td>
+                    </tr>
+                    <tr>
+                        <td>当前期数</td>
+                        <td>{:getKitheNum()}期</td>
+                    </tr>
+
+                    <tr>
+                        <td>下注内容</td>
+                        <td>{$class2} @ <span style="color: red;">{$min_bl}</span></td>
+                    </tr>
+                    <tr>
+                        <td>下注金额</td>
+                        <td>{$Num_1}
+                            <input name="gold" class="input1" value="{$Num_1}" type="hidden"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>可蠃金额</td>
+                        <td> <span style="color: #ff0000;">{$Num_1*$min_bl-$Num_1}</span></td>
+                    </tr>
+                    <tr>
+                        <td>单注限额</td>
+                        <td>{$xx}</td>
+                    </tr>
+                    <tr>
+                        <td>单号限额</td>
+                        <td>{$xxx}</td>
+                    </tr>
+                    <tr>
+                        <input type="hidden" value="SP11" name="concede" />
+                        <input type="hidden" value='{$ratex*1000}' name="ioradio" />
+                        <input type="hidden" value='?' name="ioradio1" />
+                        <input type="hidden" value='{$number1}' name="number1" />
+                        <input type='hidden' name="rate_id" value='{$rate_id}' />
+                        <input name="min_bl" id="min_bl" type="hidden" value="{$min_bl}" />
+                        <input type="hidden" name="from_url" value="{$url}">
+                        <td colspan="2" align="center">
+                            <button class="layui-btn layui-btn-sm layui-btn-primary ret" type="reset">放弃</button>
+                            <button class="layui-btn layui-btn-sm" type="submit">确定</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    layui.use(['layer'],function () {
+        var layer=layui.layer;
+        $('.ret').click(function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            window.parent.location.reload();
+        });
+    })
+</script>

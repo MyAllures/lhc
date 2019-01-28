@@ -1,0 +1,87 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+h3{font-weight: 600;}
+em{font-style: normal;color: red;}
+.layui-quote-nm{background: #fff;}
+div[carousel-item] div{padding-left: 10px;}
+.layadmin-text-center{text-align: center;}
+.layadmin-text-center img {max-width: 80%;border-radius: 50%;margin-top: 5px;}
+.user-account{border-left: 1px solid #e6e6e6; text-align: center;}
+.user-account div:not(:last-child){border-bottom: 1px solid #e6e6e6;}
+.user-total{text-align: center;    padding: 36px;}
+.user-total div:not(:last-child){border-right: 1px solid #e6e6e6;}
+.user-total i{font-size: 25px;}
+.user-total div:nth-child(1) i{color: #680279;}
+.user-total div:nth-child(2) i{color: #ded013;}
+.user-total div:nth-child(3) i{color: #035cbb;}
+.user-total div:nth-child(4) i{color: #13bd00;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-row layui-col-space15">
+		<div class="layui-col-md6" style="padding-left: 0px;">
+			<div class="layui-card">
+				<div class="layui-card-header">账户信息</div>
+				<div class="layui-card-body">
+					<div class="layui-row">
+						<div class="layadmin-contact-box layui-col-md10">
+							<div class="layui-col-md2 layui-col-sm3">
+								<div class="layadmin-text-center">
+									<img src="__IMAGES__/character.jpg">
+								</div>
+							</div>
+							<div class="layui-col-md8 layadmin-padding-left20 layui-col-sm6">
+								<h3 class="layadmin-title">
+									<strong>{$user['truename']}</strong>
+								</h3>
+								<div class="layadmin-address">
+									登录次数：{$user['login_times']}
+									<br/>
+									最后登陆IP：{$user['last_login_ip']}
+									<br/>
+									最后登陆时间：{$user['last_login_time']|date="Y-m-d H:m:i",###}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-col-md6" style="padding-right: 0px;">
+			<div class="layui-card">
+				<div class="layui-card-header">用户统计</div>
+				<div class="layui-card-body">
+					<div class="layui-row user-total">
+						<div class="layui-col-md4" >
+							<i class="layui-icon layui-icon-release"></i>
+							<h3>100</h3>
+							<span>代理</span>
+						</div>
+						<div class="layui-col-md4" >
+							<i class="layui-icon layui-icon-user"></i>
+							<h3>10000</h3>
+							<span>会员</span>
+						</div>
+						<div class="layui-col-md4">
+							<i class="layui-icon layui-icon-rmb"></i>
+							<h3>99999</h3>
+							<span>账户</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index','console']);
+</script>
+{/block}

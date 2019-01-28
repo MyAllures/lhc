@@ -1,0 +1,47 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.toolbar{margin-bottom: 10px;}
+	input,dl{font-size: 14px;}
+	.layui-input{height: 30px;}
+	.layui-table tr {height: 50px;}
+	td[data-field="headimgurl"] img{width: 32px;}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">用户列表</div>
+		<div class="layui-card-body">
+			<div id="user-table" lay-filter="user"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="topToolBar">
+	<div class="layui-btn-container">
+		<div class="layui-inline">
+			<input type="text" name="name" value="{{ typeof(d.where.name) == 'undefined'?'':d.where.name }}" placeholder="用户名" class="layui-input">
+		</div>
+		<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" lay-event="search" style="margin-bottom: 0px;margin-left: 5px">搜索</a>
+	</div>
+</script>
+
+<script type="text/html" id="switchState">
+  <input type="checkbox" name="state" value="1" lay-skin="switch" lay-text="正常|禁用" lay-filter="state" data-id="{{ d.id }}" {{ d.state == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="toolbar">
+	<a class="layui-btn layui-btn-xs" lay-event="charge">充值</a>
+	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="finance">财务明细</a>
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'user']);
+</script>
+{/block}

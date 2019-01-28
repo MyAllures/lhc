@@ -1,0 +1,44 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.toolbar{margin-bottom: 10px;}
+	input,dl{font-size: 14px;}
+	.layui-input{height: 30px;}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">盘口列表</div>
+		<div class="layui-card-body"> 
+			<div id="history-table" lay-filter="history"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="topToolbar">
+	<div class="layui-btn-container">
+
+	</div>
+</script>
+
+<script type="text/html" id="switchState">
+  	<input type="checkbox" name="state" value="1" lay-skin="switch" lay-text="是|否" lay-filter="state" data-id="{{ d.id }}" {{ d.lx == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="toolbar">
+	<a class="layui-btn layui-btn layui-btn-xs" lay-event="lottery">开盘</a>
+	<a href="javascript:;" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="balance">结算</a>
+	<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-xs"  lay-event="edit">编辑</a>
+	<a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'kithe']);
+</script>
+{/block}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <script src="__LAYUI__/layui.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-card">
+                <div class="layui-card-header">{$kithe}期下注状况
+                    <div style="float: right;">
+                        <a href="javascript:history.back();" class="layui-btn layui-btn-primary layui-btn-sm">返回</a>
+                        <a href="javascript:location.reload();" class="layui-btn layui-btn-primary layui-btn-sm">刷新</a>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>下注单号</th>
+                            <th>下注时间</th>
+                            <th>内容</th>
+                            <th>赔率</th>
+                            <th>金额</th>
+                            <th>佣金</th>
+                            <th>会员收付</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {if condition="$result"}
+                        {foreach name="result" id="r"}
+                        <tr>
+                            <td>{$key+1}</td>
+                            <td>{$r['num']}</td>
+                            <td>{$r['adddate']}</td>
+                            <td>
+                                {if condition="!empty($r['td4'])"}
+                                {foreach name="r['td4']" id="t4"}
+                                {$t4}
+                                {/foreach}
+                                {else/}
+                                {$r['class2']}:{$r['class3']}
+                                {/if}
+                            </td>
+                            <td>{$r['rate']}</td>
+                            <td>{$r['sum_m']}</td>
+                            <td>{if condition="isset($r['td7'])"}{$r['td7']}{else/} 0 {/if}</td>
+                            <td>{if condition="isset($r['td8'])"}{$r['td8']}{else/}0{/if}</td>
+                        </tr>
+                        {/foreach}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>小计</td>
+                            <td>共下注《{$z_re}注》</td>
+                            <td></td>
+                            <td>{$z_sum}</td>
+                            <td>{$z_userds}</td>
+                            <td>{$z_user|number_format=2}</td>
+                        </tr>
+                        {else/}
+                        <tr><td colspan="6" align="center">暂无数据</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

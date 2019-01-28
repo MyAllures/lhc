@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>即时开奖查看</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <script src="__LAYUI__/layui.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    即时开奖
+                </div>
+                <div class="layui-card-body">
+                    <span style="color: red; margin-left: 20px;">第{$data['nn']}期开奖结果：</span>
+                    <div class="layui-inline" style="margin-left: 30px; padding: 50px 0;">
+                        <img src="__IMAGES__/num{$data['n1']}.gif" alt="">
+                        <img src="__IMAGES__/num{$data['n2']}.gif" alt="">
+                        <img src="__IMAGES__/num{$data['n3']}.gif" alt="">
+                        <img src="__IMAGES__/num{$data['n4']}.gif" alt="">
+                        <img src="__IMAGES__/num{$data['n5']}.gif" alt="">
+                        <img src="__IMAGES__/num{$data['n6']}.gif" alt="">
+                        <img src="__IMAGES__/q1.gif" alt="">
+                        <img src="__IMAGES__/num{$data['na']}.gif" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

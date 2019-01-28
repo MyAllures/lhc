@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下单成功</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <script src="__LAYUI__/layui.js"></script>
+    <script src="__LAYUI__/lay/modules/layer.js"></script>
+    <style>
+        .layui-table td, .layui-table th{
+            text-align: center;
+        }
+    </style>
+    <script>
+        function closeWin(){
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            window.parent.location.reload();
+
+        }
+        $(function(){
+            layui.use(['layer'],function () {
+                var layer=layui.layer;
+                {if condition="$arr['code'] eq 1"}
+                    layer.msg('{$arr["msg"]}',{icon:2});
+                    closeWin();
+                {/if}
+                $('.ret').click(function () {
+                    closeWin();
+                });
+                setTimeout(closeWin,20000);
+            });
+        })
+
+    </script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <table class="layui-table">
+               <thead>
+               <tr>
+                   <th colspan="4">下注成功</th>
+               </tr>
+               <tr>
+                   <th>内容</th>
+                   <th>赔率</th>
+                   <th>下注金额</th>
+               </tr>
+               </thead>
+                <tbody>
+                {foreach name="res" id="r"}
+                {if condition="$r['num'] neq ''"}
+                <tr>
+                    <td><span style="color: #ff0000;">{$r['class2']}：</span><span style="color: #ff6600;">{$r['class3']}</span></td></td>
+                    <td>{$r['rate']}</td>
+                    <td>{$r['num']}</td>
+                </tr>
+                {/if}
+                {/foreach}
+                <tr>
+                    <td colspan="4" align="center">
+                        <button class="layui-btn layui-btn-sm ret">下注成功</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

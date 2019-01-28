@@ -1,0 +1,25 @@
+/*图片上传start*/
+.file-div {
+  position: relative;
+  width:80px!important;
+  height: 80px!important;
+  border: 1px solid #E6E6E6;
+}
+.file-div img {
+  position: absolute;
+  left: 0.5%;
+  top: 0.5%;
+  width:99%; 
+  height:99%;
+  z-index: 0;
+  border: none;
+}
+.file-div input[type="file"] {
+  position: absolute;
+  left: 0.5%;
+  top: 0.5%;
+  width: 99%;
+  height: 99%;
+  z-index: 1;
+  opacity:0;
+}

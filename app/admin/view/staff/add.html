@@ -1,0 +1,70 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+	.btn-group{margin-bottom: 10px;}
+	.collapse-link{float: right;cursor: pointer;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form" lay-filter="LAY-user-add">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">角色</label>
+				    <div class="layui-input-inline">
+				      	<select name="role_id" lay-verify="required">
+				      		{volist name="roles" id="role"}
+				      		<option value="{$role.id}">{$role.cname}</option>
+				      		{/volist}
+				      	</select>
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">用户名</label>
+				    <div class="layui-input-inline">
+				    	<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">密码</label>
+				    <div class="layui-input-inline">
+				    	<input type="text" name="password" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">真实姓名</label>
+				    <div class="layui-input-inline">
+				    	<input type="text" name="truename"  autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">手机号码</label>
+				    <div class="layui-input-inline">
+				    	<input type="text" name="mobile" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-staff-add">立即提交</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'staff']);
+</script>
+{/block}

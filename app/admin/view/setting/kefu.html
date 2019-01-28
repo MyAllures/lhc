@@ -1,0 +1,59 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	#wxqrcode{   border: 1px solid #D2D2D2;width: 128px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">客服设置</div>
+		<div class="layui-card-body">
+			<form class="layui-form" lay-filter="LAY-site-edit">
+				<input type="hidden" name="key" value="site">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">微信号码</label>
+				    <div class="layui-input-inline">
+				      	<input type="text" name="kefu[wxno]" value="{$kefu.wxno|default=''}"  lay-verify="required" autocomplete="off" class="layui-input">
+				    </div>
+			  	</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">微信二维码</label>
+					<div class="layui-input-block">
+						<input type="hidden" name="kefu[wxqrcode]" value="{$kefu.wxqrcode|default=''}">
+						{if condition="empty($kefu['wxqrcode'])"}
+						<img src="__STATIC__/images/default_image.gif" id="wxqrcode">
+						{else /}
+						<img src="{$kefu.wxqrcode}" id="wxqrcode">
+						{/if}
+					</div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">QQ号码</label>
+				    <div class="layui-input-inline">
+				      	<input type="text" name="kefu[qq]" value="{$kefu.qq|default=''}"  lay-verify="required" autocomplete="off" class="layui-input">
+				    </div>
+			  	</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-kefu-edit">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180604'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'setting']);
+</script>
+{/block}

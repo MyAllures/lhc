@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用条款</title>
+    <link rel="stylesheet" href="__IMAGES__/main.css">
+    <style>
+        body{
+            margin-top: -25px;
+            background-color: #fff;
+        }
+        .bannertop{
+            /*background-color:green;*/
+            border-bottom: 5px solid red;
+        }
+        #bottomNav{
+            background-color: rgb(0, 153, 255);
+        }
+    </style>
+</head>
+<body>
+    <div class="bannertop">
+        <h2>{$webname}使用条款</h2>
+    </div>
+    {$content}
+    <div id="bottomNav">
+        <input name="submit" type="submit" class="wobu" value="我不同意" onclick="javascript:location.href='{:url('login/logout')}'" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input name="submit2" type="submit"  class="wobu" value="我同意" onclick="javascript:location.href='/'" />
+    </div>
+</body>
+</html>

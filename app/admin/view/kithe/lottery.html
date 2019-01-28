@@ -1,0 +1,78 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form">
+				<input type="hidden" name="id" value="{$kithe.id}">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">平1</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="n1" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">平2</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="n2" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+								<div class="layui-form-item">
+				    <label class="layui-form-label">平3</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="n3" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+								<div class="layui-form-item">
+				    <label class="layui-form-label">平4</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="n4" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+								<div class="layui-form-item">
+				    <label class="layui-form-label">平5</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="n5" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+								<div class="layui-form-item">
+				    <label class="layui-form-label">平6</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="n6" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">特码</label>
+				    <div class="layui-input-inline">
+				    	<input type="number" name="na" lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-lottery">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'kithe']);
+</script>
+{/block}

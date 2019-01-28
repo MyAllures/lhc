@@ -1,0 +1,148 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+.layui-form-label{width: 115px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form">
+				<div class="layui-row">
+					<div class="layui-col-md6">
+						<div class="layui-form-item">
+							<label class="layui-form-label">预设期数</label>
+							<div class="layui-input-inline">
+								<input type="text" name="nn" value="{$curnn}" class="layui-input">     
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">自动开盘时间</label>
+							<div class="layui-input-inline">
+								<input type="text" name="zfbdate1" value="" class="layui-input">     
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">充许自动开盘</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="best" value="1" title="是">
+      							<input type="radio" name="best" value="0" title="否" checked>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">特码</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kitm" value="0" title="封">
+      							<input type="radio" name="kitm" value="1" title="开" checked>>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">正特</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kizt" value="0" title="封" >
+      							<input type="radio" name="kizt" value="1" title="开" checked>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">正码</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kizm" value="0" title="封" >
+      							<input type="radio" name="kizm" value="1" title="开" checked>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">五行</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kizm6" value="0" title="封" >
+      							<input type="radio" name="kizm6" value="1" title="开" checked>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">过关</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kigg" value="0" title="封" >
+      							<input type="radio" name="kigg" value="1" title="开" checked> 
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">连码</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kilm" value="0" title="封" >
+      							<input type="radio" name="kilm" value="1" title="开" checked>  
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">生肖/正特尾</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kisx" value="0" title="封" >
+      							<input type="radio" name="kisx" value="1" title="开" checked>    
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">半波/半半波/正肖七色波</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kibb" value="0" title="封" >
+      							<input type="radio" name="kibb" value="1" title="开" checked>  
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">头尾数</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="kiws" value="0" title="封" >
+      							<input type="radio" name="kiws" value="1" title="开" checked>   
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-md6">
+						<div class="layui-form-item">
+							<label class="layui-form-label">开奖时间</label>
+							<div class="layui-input-inline">
+								<input type="text" name="nd" class="layui-input">     
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">总自动封盘时间</label>
+							<div class="layui-input-inline">
+								<input type="text" name="zfbdate" class="layui-input">     
+							</div>
+						</div>
+						<div class="layui-form-item" style="height: 38px;"></div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">特码自动封盘时间</label>
+							<div class="layui-input-inline">
+								<input type="text" name="kitm1" value="" class="layui-input">     
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">正码自动封盘时间</label>
+							<div class="layui-input-inline">
+								<input type="text" name="kizm1" value="" class="layui-input">     
+							</div>
+						</div>
+						<div class="layui-form-item layui-layout-admin">
+							<div class="layui-input-block">
+								<div class="layui-footer" style="left: 0;">
+									<button class="layui-btn" lay-submit lay-filter="LAY-kithe-add">立即提交</button>
+									<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'kithe']);
+</script>
+{/block}

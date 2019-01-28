@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>下注明细</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/bootstrap/css/bootstrap.min.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+    <script src="__LAYUIS__/layui/layui.js"></script>
+    <style>
+        .layui-table td, .layui-table th {
+            position: relative;
+            padding: 9px 15px;
+            min-height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    [{if condition="$class1 eq '特码' or $class1 eq '正码'"}{$class1}：{$class3}{else/}{$class1}：{$Think.get.class2 ? $Think.get.class2 : ''}：{$class3}{/if}]下注明细
+                    <div class="layui-btn-group" style="float:right;">
+                        <a class="layui-btn layui-btn-primary layui-btn-sm" href="javascript:history.back();">返回</a>
+                        <a class="layui-btn layui-btn-primary layui-btn-sm" href="javascript:location.reload();">刷新</a>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>订单号</th>
+                            <th>下单时间</th>
+                            <th>期数</th>
+                            <th>会员</th>
+                            <th>下注总额</th>
+                            <th>赔率</th>
+                            <th>佣金</th>
+                            <th>代%</th>
+                            {if condition="$data['lx'] neq 2"}<th>总%</th>{/if}
+                            {if condition="$data['lx'] neq 1"}
+                            <th>股%</th>
+                            {if condition="$data['lx'] neq 4"}<th>大股%</th>{/if}
+                            <th>公%</th>
+                            {/if}
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        {if condition="empty($res)"}
+                        <tr><td colspan="{if condition="$data['lx'] eq 1 or $data['lx'] eq 4"}13{elseif condition="$data['lx'] eq 2"/}11{else/}10{/if}">暂无数据</td></tr>
+                        {else/}
+                        {foreach name="res" id="r"}
+                        <tr>
+                            <td>{$r['id']}</td>
+                            <td>{$r['num']}</td>
+                            <td>{$r['adddate']}</td>
+                            <td>{$r['kithe']}</td>
+                            <td>{$r['username']}.{$r['abcd']}.{$r['user_ds']|abs}</td>
+                            <td>{$r['sum_m']}</td>
+                            <td>{$r['rate']}</td>
+                            <td>{$r['sum_m']*$r['user_ds']/100}</td>
+                            <td>{$r['dai_zc']*10}</td>
+                            {if condition="$data['lx'] neq 2"}<td>{$r['zong_zc']*10}</td>{/if}
+                            {if condition="$data['lx'] neq 1"}
+                            <td>{$r['guan_zc']*10}</td>
+                            {if condition="$data['lx'] neq 4"} <td>{$r['guan1_zc']*10}</td>{/if}
+                            <td>{$r['dugu_zc'] ? $r['dugu_zc']*10 : 0}</td>
+                            {/if}
+                        </tr>
+                        {/foreach}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>总计</td>
+                            <td>{$sum_m}</td>
+                            <td></td>
+                            <td>{$user_ds}</td>
+                            <td></td>
+                            {if condition="$data['lx'] neq 2"}<th></th>{/if}
+                            {if condition="$data['lx'] neq 1"}
+                            <td> </td>
+                            <td> </td>
+                            {/if}
+                        </tr>
+                        <tr align="center"><td colspan="{if condition="$data['lx'] eq 1 or $data['lx'] eq 4"}13{elseif condition="$data['lx'] eq 2"/}11{else/}10{/if}">{$page}</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

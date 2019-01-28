@@ -1,0 +1,9 @@
+<script type="text/javascript">
+(function(){
+	var Think = window.Think = {
+		"ROOT"   : "<?php echo request()->domain();?>", //当前网站地址
+		"MODULE" : "<?php echo request()->module();?>",
+		"DEEP"	  :"{$Think.config.pathinfo_depr}"
+	}
+})();
+</script>

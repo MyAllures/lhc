@@ -1,0 +1,60 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-btn-container .layui-btn{margin-bottom: 0px;}
+label,input,dl{font-size: 14px;display: block;}
+.layui-input{height: 30px;}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">注单查询</div>
+		<div class="layui-card-body">
+			<div id="tan-table" lay-filter="tan"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="topToolBar">
+	<div class="layui-btn-container layui-form">
+		<div class="layui-inline" style="width: 100px">
+			<select name="class">
+				<option value="1">账号</option>
+			    <option value="2">下注单号</option>
+			    <option value="3">下注盘类</option>
+			</select>
+		</div>
+		<div class="layui-inline">
+			<input type="text" name="key" autocomplete="off" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<label style="padding-left: 15px;padding-right: 5px">日期区间</label>
+		</div>
+		<div class="layui-inline ">
+			<input type="text" name="stardate" placeholder="开始日期" value="{{ typeof(d.where.stardate) == 'undefined'?layui.util.toDateString(new Date, 'yyyy-MM-dd'):d.where.stardate }}" autocomplete="off" class="layui-input" id="stardate">
+		</div>
+		<div class="layui-inline">
+			<input type="text" name="enddate" placeholder="结束日期" value="{{ typeof(d.where.enddate) == 'undefined'?layui.util.toDateString(new Date, 'yyyy-MM-dd'):d.where.enddate }}" autocomplete="off" class="layui-input" id="enddate">
+		</div>
+		<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit lay-filter="LAY-btn-search" style="margin-left: 5px;">点击查询</a> 
+	</div>
+</script>
+
+<script type="text/html" id="switchState">
+  <input type="checkbox" name="state" value="1" lay-skin="switch" lay-text="可用|禁用" lay-filter="state" data-id="{{ d.id }}" {{ d.state == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="toolbar">
+
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'tan']);
+</script>
+{/block}

@@ -1,0 +1,257 @@
+<html>
+<head>
+    <title>{$class1}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="__IMAGES__/xp.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td height="2"></td>
+    </tr>
+</table>
+<table width="100%"   border="1" cellpadding="2" cellspacing="1" bordercolor="#CCCCCC" bordercolordark="#f9f9f9" bgcolor="#FFFFFF">
+    <tr>
+        <td height="28" colspan="8" align="center" nowrap="nowrap">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="18%"><font color=ff0000 size="3"><b>{$ids}</b></font></td>
+                    <td width="22%"><font color=000000>封盘倒计时:</font><br /><font color="#FF0000"><strong><b id="time"></b></strong></font><br />下注金额:<span id="allgold">0</span></td>
+                    <td width="60%" >
+                        <div align="right">
+                            {if condition="$ids eq '二肖连中'"}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'二肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:ff0000;'>二肖连中</span></button>&nbsp;
+                            {else/}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'二肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:000000;'>二肖连中</span></button>&nbsp;
+                            {/if}
+                            {if condition="$ids eq '三肖连中'"}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'三肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:ff0000;'>三肖连中</span></button>&nbsp;
+                            {else/}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'三肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:000000;'>三肖连中</span></button>&nbsp;
+                            {/if}
+                            {if condition="$ids eq '四肖连中'"}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'四肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:ff0000;'>四肖连中</span></button>&nbsp;
+                            {else/}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'四肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:000000;'>四肖连中</span></button>&nbsp;
+                            {/if}
+                            {if condition="$ids eq '五肖连中'"}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'五肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:ff0000;'>五肖连中</span></button>&nbsp;
+                            {else/}
+                            <button onClick="javascript:location.href='{:url('index',['ids'=>'五肖连中'])}';" class="button_a" style="height:22" ;><img src="__IMAGES__/add.gif" width="16" height="16" align="absmiddle"><SPAN id=rtm1 STYLE='color:000000;'>五肖连中</span></button>&nbsp;
+                            {/if}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <form target="k_meml" name="lt_form"  method="post" action="{:url('save',['class2'=>$ids])}">
+        <tr ><td height="27" colspan="15" align="center" background="__IMAGES__/tm680.gif"><font color="#333333"><b>{$ids}</b></font></td></tr>
+        {for start="0" end="6"}
+        <tr>
+            <td width="41" height="35" align="center" class="tbtitle">{$res[$i]['class3']}</td>
+            <td width="50" height="25" align="center" valign="middle" class="ball_ff"><b><span id=bl{$res[$i]['id']}> 0 </span><span> </span></b></td>
+            <td width="55" height="25" align="center" bgcolor="#FFFFFF"><input type="checkbox" name="num{$i+1}" value="{$res[$i]['class3']}" id="num{$i+1}"></td>
+            <td height="25" bgcolor="f1f1f1"  >
+                <table align=left>
+                    <tr>
+                        {foreach name="res[$i]['m_number']" id="m"}
+                        <td align=middle   height="32" width="32" class="ball_{:getColor($m)}"><img src="__IMAGES__/num{$m}.gif" /></td>
+                        {/foreach}
+                    </tr>
+                </table>
+            </td>
+
+            <td width="41" height="35" align="center" class="tbtitle">{$res[$i+6]['class3']}</td>
+            <td width="50" height="25" align="center" valign="middle" class="ball_ff"><b><span id=bl{$res[$i+6]['id']}> 0 </span><span> </span></b></td>
+            <td width="55" height="25" align="center" bgcolor="#FFFFFF"><input type="checkbox" name="num{$i+6+1}" value="{$res[$i+6]['class3']}" id="num{$i+6+1}"></td>
+            <td height="25" bgcolor="f1f1f1"  >
+                <table align=left>
+                    <tr>
+                        {foreach name="res[$i+6]['m_number']" id="m"}
+                        <td align=middle   height="32" width="32" class="ball_{:getColor($m)}"><img src="__IMAGES__/num{$m}.gif" /></td>
+                        {/foreach}
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {/for}
+        <tr>
+            <td height="35" colspan="8" align="center"  bgcolor="#FFFFFF">
+                <table border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center">下注金额：</td>
+                        <td width="44" align="left">
+                            <input style="height:18px;margin-top: 15px;" class="input1" name="Num_1" type="text" id="Num_1" size="6" sum="{:getTanKitheSum($class1,$ids)}">&nbsp;&nbsp;</td>
+                        <td> &nbsp;&nbsp;
+                            <input name="btnSubmit" type="submit" id="btnSubmit" value="提交" />
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td width="88" align="center"><input type="reset" name="Submit3" value="重设" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <INPUT type="hidden" value="0" name="gold_all" id="total_gold">
+    </form>
+
+</table>
+<script>
+    $(function(){
+        //远程定时获取指定数据
+        function loc(){
+            $.ajax({
+                url:'{:url('bets/server')}',
+                type:'post',
+                returnType:'json',
+                data:{
+                'class1':'{$class1}',
+                    'class2':'{$ids}'
+            },
+            success:function(response,status,xhr){
+                for (var i=0;i<12;i++){
+                    var sbbn=i+1;
+                    if(response[i].locked==1){
+                        $('#bl'+response[i]['id']).html('停');
+                        $('#bl'+response[i]['id']).parent().parent().next().find('input').attr({disabled:true}).css('background','#F1F1F1');
+                    }else{
+                        switch('{$abcd}'){
+                            case 'A':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    $('#bl'+response[i]['id']).html('<SPAN STYLE=\'background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;\' ><span style=\'display:inline-block;height:100%;vertical-align:middle;\'></span><font color=ff0000><b>'+response[i]['rate']+'</b></font></span>');
+                                }else{
+                                    $('#bl'+response[i]['id']).html(response[i]['rate']);
+                                }
+                                break;
+                            case 'B':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('bbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('bbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html(bs);
+                                }
+                                break;
+                            case 'C':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('cbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('cbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html(bs);
+                                }
+                                break;
+                            case 'D':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('dbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('dbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html(bs);
+                                }
+                                break;
+                            default:
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    $('#bl'+response[i]['id']).html('<SPAN STYLE=\'background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;\' ><span style=\'display:inline-block;height:100%;vertical-align:middle;\'></span><font color=ff0000><b>'+response[i]['rate']+'</b></font></span>');
+                                }else{
+                                    $('#bl'+response[i]['id']).html(response[i]['rate']);
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        });
+            //定时操作
+            setTimeout(loc,{$Think.config.ftime});
+        }
+        loc();      //执行
+
+        //表单焦点判断
+        $('.input1').on('blur',function(){
+            var re = /^[0-9]+.?[0-9]*$/;
+            var value=parseFloat($(this).val());
+            var sum=parseFloat($(this).attr('sum'));
+            if(!re.test(value) && $(this).val()!=''){
+                alert('下注金额仅能输入数字');
+                $(this).val('0');
+                value=0;
+            }
+            if($(this).val()==''){
+                value=0;
+            }
+            if ( (value < {:getMemField('xy')}) && (value!='')) {$(this).val('0');$(this).focus(); alert("下注金额不可小於最低限度:{:getMemField('xy')}!!"); return false;}
+            if (parseFloat(sum+value) > {:getQuotaField($xc,'xxx')}) {$(this).val('0'); $(this).focus(); alert("对不起,号止本期下注金额最高限制 : {:getQuotaField($xc,'xxx')}!!"); return false;}
+            if (value > {:getQuotaField($xc,'xx')}) {$(this).val('0');$(this).focus(); alert("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!"); return false;}
+
+            //下注金额的值
+            var money = getAllInput();
+            if (money > {:getMemField('ts')}){$(this).val('0');$(this).focus(); alert("下注金额不可大於可用信用额度!!");    return false;}
+
+            $('#allgold').html(money);
+            $('[name=gold_all]').val( $('#allgold').html());
+        });
+        //计算所有的input表单的值
+        function getAllInput(){
+            $nums=0;
+            for (var i=1;i<=$('.input1').length;i++){
+                if($('[name=Num_'+i+']').val()!=''){
+                    $nums+=parseFloat($('[name=Num_'+i+']').val());
+                }
+            }
+            return $nums;
+        }
+
+        //表单提交
+        $('form').submit(function(){
+            var sum=parseFloat($('#allgold').html());
+            if(sum<=0){
+                alert('请输入下注金额!!');
+                return false;
+            }
+            if (sum > {:getMemField('ts')})   {
+                alert("下注金额不可大於可用信用额度!!");
+                return false;
+            }
+            if (sum > {:getQuotaField($xc,'xx')}) {
+                alert("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!");
+                return false;
+            }
+            $('#btnSubmit').attr('disable','true');
+        });
+
+        //倒计时
+        var time=parseInt({:strtotime(getKithe(14))-time()});
+        //带天数的倒计时
+        function countDown(times){
+            var timer=null;
+            timer=setInterval(function(){
+                var day=0,
+                    hour=0,
+                    minute=0,
+                    second=0;//时间默认值
+                if(times > 0){
+                    day = Math.floor(times / (60 * 60 * 24));
+                    hour = Math.floor(times / (60 * 60)) - (day * 24);
+                    minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                }
+                if (day <= 9) day = '0' + day;
+                if (hour <= 9) hour = '0' + hour;
+                if (minute <= 9) minute = '0' + minute;
+                if (second <= 9) second = '0' + second;
+                //
+                $('#time').html(day+"天&nbsp;"+hour+"小时"+minute+"分"+second+"秒");
+                times--;
+            },1000);
+            if(times<=0){
+                clearInterval(timer);
+            }
+        }
+        countDown(time);
+    })
+
+</script>
+</body>
+</html>

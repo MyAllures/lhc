@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下注明细</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <link rel="stylesheet" href="__LAYUI__/bootstrap/css/bootstrap.min.css">
+    <script src="__LAYUI__/layui.js"></script>
+</head>
+<body style="background-color: #f2f2f2;!important;">
+<div class="layui-fluid">
+    <div class="layui-row" style="background-color: #fff;">
+        <div class="layui-col-xs12">
+            <div class="layui-crad">
+                <div class="layui-card-header">
+                    下注状况
+                    <div style="float: right;">
+                        <a href="javascript:location.reload();" class="layui-btn layui-btn-primary layui-btn-sm">刷新</a>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>下注时间</th>
+                            <th>期数</th>
+                            <th>类型</th>
+                            <th>内容</th>
+                            <th>赔率</th>
+                            <th>金额</th>
+                            <th>佣金</th>
+                            <th>可蠃金额</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {if condition="$result"}
+                        {foreach name="result" id="r"}
+                        <tr>
+                            <td>{$r['id']}</td>
+                            <td>{$r['adddate']}</td>
+                            <td>{$r['kithe']}期</td>
+                            <td>{$r['class1']}</td>
+                            <td>
+                                {if condition="$r['class1'] eq '过关'"}
+                                    {foreach name="r['td5']" id="v"}
+                                    {$v}<br>
+                                    {/foreach}
+                                {else/}
+                                    <span style="color:#ff0000;">{$r['class2']}：</span><span style="color:#ff6600;">{$r['class3']}</span>
+                                {/if}
+                            </td>
+                            <td>{$r['rate']}</td>
+                            <td>{$r['sum_m']}</td>
+                            <td>{$r['sum_m']*$r['user_ds']/100|round=2}</td>
+                            <td>{$r['sum_m']*$r['rate']+$r['sum_m']*$r['user_ds']/100-$r['sum_m']|round=2}</td>
+                        </tr>
+                        {/foreach}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>小计</td>
+                            <td>共下注《{$tj['z_re']}》笔</td>
+                            <td></td>
+                            <td>{$tj['z_sum']|round=2}</td>
+                            <td>{$tj['z_userds']|round=2}</td>
+                            <td>{$tj['z_user']|round=2}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" align="center">{$page}</td>
+                        </tr>
+                        {else/}
+                        <tr><td colspan="9" align="center">暂无数据</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

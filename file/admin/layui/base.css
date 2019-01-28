@@ -1,0 +1,211 @@
+/*dialog*/
+.isshow-1 {
+    display: none;
+}
+.isshow-2 {
+    display: none;
+}
+.isshow-3 {
+    display: none;
+}
+.isshow-4 {
+    display: none;
+}
+.isshow-5 {
+    display: none;
+}
+.drop-enter-active {
+  transition: all .5s ease;
+}
+.drop-leave-active {
+  transition: all .3s ease;
+}
+.drop-enter {
+  transform: translateY(-500px);
+}
+.drop-leave-active {
+  transform: translateY(-500px);
+}
+
+.dialog-wrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+.dialog-cover {
+  background: #000;
+  opacity: .3;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.dialog-content {
+  width: 50%;
+  position: fixed;
+  overflow: auto;
+  background: #fff;
+  top: 20%;
+  left: 50%;
+  margin-left: -25%;
+  z-index: 10;
+  padding: 2%;
+  line-height: 1.6;
+}
+.dialog-close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.dialog-close:hover {
+  color: #4fc08d;
+}
+.modal-header {
+  padding: 9px 15px;
+    border-bottom: 1px solid #eee;
+}
+.modal-header .close {
+    margin-top: 2px;
+}
+button.close {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+.close {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .2;
+    filter: alpha(opacity=20);
+}
+.modal-footer {
+    background-color: #FFFFFF;
+    padding: 14px 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+        border-top: 1px solid #ddd;
+            box-shadow: inset 0 1px 0 #fff;
+}
+.modal-body {
+      position: relative;
+    max-height: 450px;
+    padding: 15px;
+    overflow-y: auto;
+    
+}
+.modal-body iframe {
+  margin-top: 20px;
+}
+
+.modal-body form {
+  margin-top: 20px;
+}
+/*分页*/
+    .pages{
+        display:inline-block;
+        width:100%;
+        margin:0 auto;
+        text-align:center;
+        /* margin-top:10px;
+        margin-bottom:5px;
+        height:30px;
+        padding:7px; */
+    }
+
+    .pages .num{
+        padding:6px 12px;
+        background:#ddd;
+        margin-right:1px;
+    }
+
+    .pages .current{
+        padding:6px 12px;
+        background:#258ad6;
+        color:#ffffff;
+        margin-right:1px;
+    }
+
+    .pages .prev,.pages .next{
+        padding:6px 12px;
+        background:#ddd;
+    }
+
+
+/*表单*/
+form .layui-form-item .layui-form-label {
+  width: 110px;
+}
+form .layui-form-item .layui-input-block {
+   margin-left: 140px;
+}
+ .form-label-80 .layui-form-item .layui-form-label {
+  width: 80px;
+}
+/*图片上传start*/
+.file-div {
+  position: relative;
+  width:80px!important;
+  height: 80px!important;
+  border: 1px solid #E6E6E6;
+}
+.file-div img {
+  position: absolute;
+  left: 0.5%;
+  top: 0.5%;
+  width:99%; 
+  height:99%;
+  z-index: 0;
+  border: none;
+}
+.file-div input[type="file"] {
+  position: absolute;
+  left: 0.5%;
+  top: 0.5%;
+  width: 99%;
+  height: 99%;
+  z-index: 1;
+  opacity:0;
+}
+/*图片上传end*/
+
+
+
+    /*表格*/
+    /* .layui-table-body::-webkit-scrollbar {display:none}
+    .layui-table-body::-webkit-scrollbar {display:block!important;} */
+    /* .layui-table-body::-webkit-scrollbar {
+      overflow-x:hidden;
+    } */
+
+    .layui-table-body {
+        overflow: hidden;
+    }
+    thead tr th div {
+        height: auto!important;
+        white-space:normal!important;
+        word-wrap:break-word!important;
+    }
+    tbody tr td div {
+        height: auto!important;
+        white-space:normal!important;
+        word-wrap:break-word!important;
+    }
+
+
+    /* tbody tr div{
+      height: 60px!important;
+      line-height: 60px!important;
+    } */

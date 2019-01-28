@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>代理--操作系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+  <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+  <script src="__LAYUI__/jquery.min.js"></script>
+  <script src="__LAYUI__/base.js"></script>
+  <script src="__LAYUI__/vue.js"></script>
+  <script>
+  /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+  </script>
+  <style>
+    .layui-nav .layui-nav-item a{
+      padding: 0 14px;
+    }
+    .layadmin-side-shrink,.layadmin-pagetabs{
+      left: 0!important;
+    }
+    .layui-layout-admin,.layui-body{
+      left: 0!important;
+    }
+    .layui-layout-admin .layui-body .layadmin-tabsbody-item{
+      left: 0px;
+    }
+  .layui-layout-left{
+    left: 0px!important;
+    padding: 0!important;
+  }
+  </style>
+</head>
+<body class="layui-layout-body">
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <!-- 头部区域 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layadmin-flexible" lay-unselect>
+            <a href="javascript;void();" style="font-size:26px;font-weight: bold;">{$webname}</a>
+          </li>
+          <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>-->
+            <!--<a lay-href="{:url('home/console')}" title="导航">-->
+              <!--<i class="layui-icon layui-icon-website"></i>-->
+            <!--</a>-->
+          <!--</li>-->
+          <!--<li class="layui-nav-item" lay-unselect>-->
+            <!--<a href="javascript:;" layadmin-event="refresh" title="刷新">-->
+              <!--<i class="layui-icon layui-icon-refresh-3"></i>-->
+            <!--</a>-->
+          <!--</li>-->
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+          <li class="layui-nav-item" lay-unselect>
+            <a lay-href="{:url('jszd/index')}" layadmin-event="message" lay-text="即时注单">即时注单</a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{:url('zoufei/index')}" layadmin-event="message" lay-text="走飞">走飞</a>
+          </li>
+
+          {if condition="$admin['vip'] eq 0"}  <!--子账户不能访问 start-->
+            {if condition="$admin['lx'] eq 4"}
+            <li class="layui-nav-item layui-hide-xs" lay-unselect>
+              <a lay-href="{:url('dagu/index')}" layadmin-event="message" lay-text="股东">股东</a>
+            </li>
+            {/if}
+            {if condition="$admin['lx'] eq 1 || $admin['lx'] eq 4"}
+            <li class="layui-nav-item layui-hide-xs" lay-unselect>
+              <a lay-href="{:url('zong/index')}" layadmin-event="message" lay-text="总代理">总代理</a>
+            </li>
+            {/if}
+            {if condition="$admin['lx'] elt 2 || $admin['lx'] eq 4"}
+            <li class="layui-nav-item layui-hide-xs" lay-unselect>
+              <a lay-href="{:url('daili/index')}" layadmin-event="message" lay-text="代理">代理</a>
+            </li>
+            {/if}
+            <li class="layui-nav-item layui-hide-xs" lay-unselect>
+              <a lay-href="{:url('mem/index')}" layadmin-event="message" lay-text="会员">会员</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-unselect>
+              <a lay-href="{:url('zi/index')}" layadmin-event="message" lay-text="子账号">子账号</a>
+            </li>
+          {/if}                             <!--子账户不能访问 end-->
+
+
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{:url('baobiao/index')}" layadmin-event="message" lay-text="报表">报表</a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{:url('flyk/index')}" layadmin-event="message" lay-text="分类盈亏">分类盈亏</a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{if condition="$admin['lx'] eq 4"}{:url('zhudan/daGu')}{elseif condition="$admin['lx'] eq 1"}{:url('zhudan/index')}{elseif condition="$admin['lx'] eq 2"/}{:url('zhudan/index2',['username'=>$admin['kauser']])}{else/}{:url('zhudan/index3',['username'=>$admin['kauser']])}{/if}" layadmin-event="message" lay-text="注单查询">注单查询</a>
+          </li>
+
+          {if condition="$admin['lx'] eq 1 || $admin['lx'] eq 4"}
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{:url('didan/index')}" layadmin-event="message" lay-text="底单">底单</a>
+          </li>
+          {/if}
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{:url("kakithe/index")}" layadmin-event="message" lay-text="开奖结果">开奖结果</a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{if condition="$admin['vip'] eq 0"}{:url('guan/index')}{else/}{:url("guan/zi")}{/if}" layadmin-event="message" lay-text="个人资料">个人资料</a>
+          </li>
+          {if condition="$admin['vip'] eq 0"}
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a lay-href="{:url('bucang/index')}" layadmin-event="message" lay-text="自动补仓设置">自动补仓设置</a>
+          </li>
+          {/if}
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;">
+              <cite>{$ch}【<span style="color: red;font-weight: bold;">{$admin['kauser']}</span>】</cite>
+            </a>
+            <dl class="layui-nav-child">
+              {if condition="$admin['vip'] eq 0"} <dd style="text-align: center;"><a lay-href="{:url("guan/savepass")}">修改密码</a></dd>  <hr>{/if}
+
+              <dd style="text-align: center;cursor:pointer" onclick="loginOut()"><a>退出</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item layui-hide-xs layui-hide">
+            <a href="javascript:;" data-type="test2" id="ttt222"><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li>
+       
+        </ul>
+      </div>
+      <!-- 关于 -->
+      <div id="is-about-set" class="layui-hide">
+        <div class="layui-card-header">版本信息</div>
+        <div class="layui-card-body layui-text layadmin-about">
+      
+            <p>当前版本：<em id="version">1.0</em></p>
+            <p>基于框架：<em id="kuangjia">TP5.020+Layui2.0</em></p>
+        </div>
+
+        <div class="layui-card-header">关于版权</div>
+        <div class="layui-card-body layui-text layadmin-about">
+          
+          <blockquote class="layui-elem-quote" style="border: none;" id="copyright_about">
+          </blockquote>
+             <p>© 2018 <a href="http://conpany.1088900.cn/">树叶网络科技</a> 版权所有</p>
+          <p id="copyright"></p>
+        </div>
+      </div>
+      <!-- 侧边菜单 -->
+      <div class="layui-side layui-side-menu layui-hide">
+        <div class="layui-side-scroll">
+          <div class="layui-logo">
+            <span id="webname" style="font-size: 30px;">{:getConfigField('webname')}</span>
+          </div>
+          
+          <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+            <li data-name="app" class="layui-nav-item layui-nav-itemed">
+              <a href="javascript:;" lay-tips="应用" lay-direction="2">
+                <i class="layui-icon layui-icon-app"></i>
+                <cite>用户管理</cite>
+              </a>
+              <dl class="layui-nav-child">
+                  <!--<dd><a lay-href="{:url("user/index")}">用户管理</a></dd>-->
+                  <!--<dd><a lay-href="{:url("admin/changepass")}">修改密码</a></dd>-->
+              </dl>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 页面标签 -->
+      <div class="layadmin-pagetabs" id="LAY_app_tabs">
+        <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-down">
+          <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav" lay-shrink="all">
+            <li class="layui-nav-item">
+              <a href="javascript:;"></a>
+              <dl class="layui-nav-child layui-anim-fadein">
+                <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+          <ul class="layui-tab-title" id="LAY_app_tabsheader">
+            <li lay-id="{:url("kakithe/index")}" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+          </ul>
+        </div>
+      </div>
+      
+      
+      <!-- 主体内容 -->
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layadmin-tabsbody-item layui-show">
+          <iframe src="{:url("kakithe/index")}" frameborder="0" class="layadmin-iframe"></iframe>
+        </div>
+      </div>
+      
+      <!-- 辅助元素，一般用于移动设备下遮罩 -->
+      <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+  </div>
+
+  <script src="__LAYUIS__/layui/layui.js"></script>
+  <script>
+    // $.ajax({
+    //     type: "get",
+    //     url: "{:url('')}",
+    //     async:false,
+    //     data: {}
+    //   }).success(function (data) {
+    //     $("#version").text(data.version);
+    //     $("#kuangjia").text(data.kuangjia);
+    //     $("#copyright").text(data.banquan);
+    //     $("#copyright_about").text(data.new);
+    //     $("#webname").text(data.webname);
+        
+    //   }).fail(function (jqXHR, textStatus, errorThrown) {
+    //     //错误信息
+    //   });
+  layui.config({
+    base: '__LAYUIS__/'    //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index'],function () {
+    
+    var $ = layui.$
+      ,admin = layui.admin
+      ,element = layui.element
+      ,router = layui.router();
+      element.render();
+      var html = $("#is-about-set").html();
+
+      var active = {
+        test2: function(){
+        admin.popupRight({
+          id: 'LAY_adminPopupLayerTest'
+          ,success: function(){
+            $('#'+ this.id).html(html);
+          }
+        });
+      }
+    };
+    $('#ttt222').on('click', function(){
+      var type = $(this).data('type');
+      active[type] && active[type].call(this);
+    });
+  });
+  function loginOut() 
+  {
+    location.href="{:url('login/logout')}";
+  }
+  </script>
+</body>
+</html>

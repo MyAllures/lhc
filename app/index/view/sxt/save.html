@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>{$class1}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="__IMAGES__/xp.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+</head>
+<body>
+<table width="80%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            <table width="98%" border="0" align="center" cellpadding="2" cellspacing="1" bgcolor="#FDF4CA">
+                <tr>
+                    <td height="25" colspan="2" align="center"  class="tbtitle">确认下注</td>
+                </tr>
+                <tr>
+                    <td width="35%" height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">账号名称</span></td>
+                    <td width="65%" bgcolor="#FFFFFF"><span class="STYLE2">{:getMemField('kauser')}</span></td>
+                </tr>
+                <tr>
+                    <td height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">会员类型 </span></td>
+                    <td bgcolor="#FFFFFF"><span class="STYLE2">{:getMemField('abcd')}盘</span></td>
+                </tr>
+                <tr>
+                    <td height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">总信用额</span></td>
+                    <td bgcolor="#FFFFFF"><span class="STYLE2">￥{:getMemField('cs')}元</span></td>
+                </tr>
+                <tr>
+                    <td height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">可用余额</span></td>
+                    <td bgcolor="#FFFFFF"><span class="STYLE2">￥{:getMemField('ts')} 元</span></td>
+                </tr>
+                <tr>
+                    <td height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">最低限额</span></td>
+                    <td bgcolor="#FFFFFF"><span class="STYLE2">￥{:getMemField('xy')}元</span></td>
+                </tr>
+                <tr>
+                    <td height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">下注总额</span></td>
+                    <td bgcolor="#FFFFFF"><span class="STYLE2">{:getKitheSum()}元</span></td>
+                </tr>
+                <tr>
+                    <td height="25" align="right" bgcolor="#6fba2c" class="tbtitle"><span class="STYLE3">当前期数</span></td>
+                    <td bgcolor="#FFFFFF"><span class="STYLE2">{:getKitheNum()}期</span></td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td height="3"></td>
+                </tr>
+            </table>
+            <table width="98%" border="0" align="center" cellpadding="2" cellspacing="1" bgcolor="#FDF4CA">
+                <form action="{:url('saveall',['class2'=>$ids])}" method="post" name="LAYOUTFORM" id="form1">
+                    <tr>
+                        <td width="35%" height="25" bgcolor="#ffffff" style="LINE-HEIGHT: 22px">{$bl['class3']}</td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#F9F7D7"><div align="center"><b>{$number1}</b></div></td>
+                    </tr>
+                    <tr>
+                        <td height="25" bgcolor="#ffffff" style="LINE-HEIGHT: 23px"><div align="center"><strong>组合共&nbsp;<font color=ff0000>{$zs}</font>&nbsp;组</strong></div></td>
+                    </tr>
+                    <tr>
+                        <td height="25" bgcolor="#ffffff" style="LINE-HEIGHT: 23px">&nbsp;下注金额:
+                            <INPUT name="gold" id="gold" value="{$num_1}" size="8" maxLength="8" sum="{:getTanKitheSum($class1,$ids)}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25" bgcolor="#ffffff" style="LINE-HEIGHT: 23px">&nbsp;总下注金额: <strong><FONT id="pc1" color=#ff0000>{$num_1*$zs}&nbsp;</FONT></strong></td>
+                    </tr>
+                    <tr>
+                        <td height="25" bgcolor="#ffffff">&nbsp;单注限额: {:getQuotaField($R,'xx')}</td>
+                    </tr>
+                    <tr>
+                        <td height="25" bgcolor="#ffffff">&nbsp;单号限额: {:getQuotaField($R,'xxx')}</td>
+                    </tr>
+                    <tr>
+                        <td height="30" align="center" bgcolor="#ffffff" style="LINE-HEIGHT: 23px">
+                            &nbsp;&nbsp;
+                            <input onClick="self.location='{:url('bets/getuserorder')}'" type="button" value="放弃" name="btnCancel" />
+                            &nbsp;&nbsp; <input  type="submit" value="确定" name="btnSubmit" />
+                            <input type='hidden' name="rate_id" value='{$rate_id}' /> </td>
+                    </tr>
+                    <input type="hidden" value="SP11" name="concede" />
+                    <input type="hidden" value='{$bl['rate']*1000}' name="ioradio" />
+                    <input type="hidden" value='{$zs}' name="ioradio1" />
+                    <input type="hidden" value='{$mama}' name="number1" />
+                    <INPUT type=hidden value='{$number3}' name=number3>
+                </form>
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td height="3"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<script>
+    $(function(){
+        $('#gold').on('blur',function(){
+            var value=parseFloat($(this).val());
+            var sum=parseFloat($(this).attr('sum'));
+            var re = /^[0-9]+.?[0-9]*$/;
+            if(!re.test(value) && $(this).val()!=''){
+                alert('下注金额仅能输入数字');
+                $(this).val('0');
+                value=0;
+            }
+            if($(this).val()==''){
+                value=0;
+            }
+            var zsValue=value*{$zs};
+            if ( (value < {:getMemField('xy')}) && (value!='')) {$(this).val('0');$(this).focus(); alert("下注金额不可小於最低限度:{:getMemField('xy')}!!"); return false;}
+            if (parseFloat(sum+zsValue) > {:getQuotaField($R,'xxx')}) {$(this).val('0'); $(this).focus(); alert("对不起,号止本期下注金额最高限制 : {:getQuotaField($R,'xxx')}!!"); return false;}
+            if (value > {:getQuotaField($R,'xx')}) {$(this).val('0');$(this).focus(); alert("下注金额不可大於单注限额: {:getQuotaField($R,'xx')}!!"); return false;}
+            if(parseFloat(zsValue)>{:getQuotaField($R,'xxx')}){$(this).val('0');$(this).focus();alert("对不起,本期有下注金额最高限制: {:getQuotaField($R,'xxx')}!!"); return false;}
+            //下注金额的值
+            if (zsValue > {:getMemField('ts')}){$(this).val('0');$(this).focus(); alert("下注金额不可大於可用信用额度!!");    return false;}
+            var endValue=parseFloat(value)*{$zs};
+            $('#pc1').html(endValue);
+        });
+
+        //表单提交
+        $('form').submit(function(){
+            var sum=parseFloat($('#gold').val());
+            var attr=parseFloat($('#gold').attr('sum'));
+            if(sum<=0){
+                alert('请输入下注金额!!');
+                return false;
+            }
+            var zsValue=sum*{$zs};
+            if(sum<{:getMemField('xy')} && value!=''){alert('下注金额不可小於最低限度：{:getMemField('xy')}');return false;}
+            if(parseFloat(attr+zsValue) >{:getQuotaField($R,'xxx')}){ alert('对不起,号止本期下注金额最高限制 : {:getQuotaField($R,'xxx')}!!');return false;}
+            if(sum>{:getQuotaField($R,'xx')}){alert('下注金额不可大於单注限额: {:getQuotaField($R,'xx')}!!');return false;}
+            if(parseFloat(zsValue)>{:getQuotaField($R,'xxx')}){alert('对不起,本期有下注金额最高限制: {:getQuotaField($R,'xxx')}!!');return false;}
+            if(sum > {:getMemField('ts')}) {alert("下注金额不可大於可用信用额度!!");return false;}
+
+            $('#btnSubmit').attr('disabled','true');
+        });
+    });
+</script>
+</body>
+</html>

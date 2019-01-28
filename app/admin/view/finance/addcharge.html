@@ -1,0 +1,57 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+label.user_info{    line-height: 36px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form" lay-filter="LAY-user-add">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">账户名</label>
+				    <div class="layui-inline">
+				    	<input type="text" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+				    </div>
+				    <div class="layui-inline">
+				    	<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal btn-search">搜索</a>
+				    </div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">账户信息</label>
+					<div class="layui-input-block">
+						<label class="user_info">请输入账户名搜索</label>
+					</div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">金额</label>
+				    <div class="layui-input-inline">
+				    	<input type="text" name="amount" lay-verify="required" autocomplete="off" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-charge-add">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180608'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'finance']);
+</script>
+{/block}

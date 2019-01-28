@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <script src="__LAYUI__/layui.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-card">
+                <div class="layui-card-header">账户历史
+                    <div style="float: right;">
+                        <a href="javascript:location.reload();" class="layui-btn layui-btn-primary layui-btn-sm">刷新</a>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table">
+                       <thead>
+                       <tr>
+                           <th>序号</th>
+                           <th>日期</th>
+                           <th>期数</th>
+                           <th>金额</th>
+                           <th>佣金</th>
+                           <th>结果</th>
+                       </tr>
+                       </thead>
+                        <tbody>
+                        {if condition="$result"}
+                        {foreach name="result" id="r"}
+                        {if condition="$r['rs5']['sum_m'] gt 0"}
+                        <tr>
+                            <td>{$key+1}</td>
+                            <td><a style="color: blue;" href="{:url('getlist',['kithe'=>$r['nn']])}">{$r['nd']|substr=0,10} 星期{$r['d']}</a></td>
+                            <td>{$r['nn']}期</td>
+                            <td><a style="color: blue;" href="{:url('getlist',['kithe'=>$r['nn']])}">{$r['rs5']['sum_m']}</a></td>
+                            <td>{$r['rs6']['user_ds']+$r['rs7']['user_ds']}</td>
+                            <td>{$r['rs6']['sum_m']+$r['rs7']['sum_m']|number_format=2}</td>
+                        </tr>
+                        {/if}
+                        {/foreach}
+                        <tr>
+                            <td></td>
+                            <td>小计</td>
+                            <td></td>
+                            <td>{$z_sum}</td>
+                            <td>{$z_userds}</td>
+                            <td>{$z_usersf}</td>
+                        </tr>
+                        {else/}
+                            <tr><td colspan="6" align="center">暂无数据</td></tr>
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

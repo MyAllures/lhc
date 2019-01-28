@@ -1,0 +1,163 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+.layui-input-inline{width: 265px !important;}
+.prefix {
+	width: 110px;
+	padding: 10px 15px;
+	height: 38px;
+	line-height: 20px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 2px 0 0 2px;
+	text-align: center;
+	background-color: #FBFBFB;
+	overflow: hidden;
+	box-sizing: border-box;
+	border-color: #e6e6e6;
+}
+.red{color: #f33;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form" lay-filter="LAY-mch-add">
+				<div class="layui-form-item">
+					<label class="layui-form-label">代理级别</label>
+					<div class="layui-input-inline">
+						<label class="layui-form-label">{$level.cname}</label>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">代理名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="cname" autocomplete="off" class="layui-input">     
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">登录账号</label>
+					<div class="layui-input-block">
+						<div class="layui-inline" style="margin-right: -5px;"><label class="prefix">{$level.prefix}</label></div>
+						<div class="layui-inline">
+							<input type="hidden" name="user_prefix" value="{$level.prefix}">
+							<input type="text" name="user_name" lay-verify="required" autocomplete="off" class="layui-input">
+						</div>  
+						<div class="layui-inline"><a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" onclick="layui.agent.checkname()">检测</a></div>
+						<div class="layui-inline" ><span class="checkname_result red"></span></div>
+					</div>
+					<div class="layui-form-mid layui-word-aux" style="margin-left: 110px;">帐号必须至少4个字元长，并只能有数字(0-9)，及英文大小写字母</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">登录密码</label>
+					<div class="layui-input-inline">
+						<input type="text" name="password" lay-verify="required" autocomplete="off" class="layui-input">   
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">信用额度</label>
+					<div class="layui-input-inline">
+						<input type="text" name="user_credit" lay-verify="required" autocomplete="off" class="layui-input">   
+					</div>
+					<div class="layui-form-mid layui-word-aux">使用多少减多少，隔天恢复</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">快开额度</label>
+					<div class="layui-input-inline">
+						<input type="text" name="quick_credit" lay-verify="required" autocomplete="off" class="layui-input">   
+					</div>
+					<div class="layui-form-mid layui-word-aux">现金额度，每期结算后返回，不会恢复，只由上线添加</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">开放盘别</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="user_plate[]" value="A" title="A" lay-skin="primary" checked>
+						<input type="checkbox" name="user_plate[]" value="B" title="B" lay-skin="primary"> 
+						<input type="checkbox" name="user_plate[]" value="C" title="C" lay-skin="primary"> 
+						<input type="checkbox" name="user_plate[]" value="D" title="D" lay-skin="primary">
+					</div>
+					<div class="layui-form-mid layui-word-aux">最小选择一个，可以多选</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">赔率控制</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="odds" lay-skin="switch" lay-text="开启|关闭"> 
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">预估风险值</label>
+					<div class="layui-input-inline" style="width: 100px;">
+						<input type="text" name="tm" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-input-inline"></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">退水</label>
+					<div class="layui-input-inline">
+						<select name="rebate" lay-verify="">
+							<option value="1">默认退水</option>
+							<option value="0">不退水</option>
+						</select>      
+					</div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">走飞状态</label>
+				    <div class="layui-input-block">
+				      <input type="checkbox" name="pz" value="0" lay-text="开启|关闭" lay-skin="switch">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">占成</label>
+					<div class="layui-input-inline" style="width: 100px;">
+						<input type="text" name="sf" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">%,0-100数值</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">投注方式</label>
+					<div class="layui-input-inline">
+						<select name="drop_type" lay-verify="">
+							<option value="1">信用额度</option>
+							<option value="2">快开额度</option>
+							<option value="0">用户选择</option>
+						</select>
+					</div>
+				</div>
+<!-- 				<div class="layui-form-item">
+					<label class="layui-form-label">补货功能</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="bp" lay-skin="switch" lay-text="开启|关闭"> 
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">下线补货功能</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="ssbp" lay-skin="switch" lay-text="开启|关闭"> 
+					</div>
+				</div> -->
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-agent-add">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+	layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'agent']);
+</script>
+{/block}

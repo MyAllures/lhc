@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下单成功</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <script src="__LAYUI__/layui.js"></script>
+    <style>
+        .layui-table td, .layui-table th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th colspan="2">下注成功</th>
+                </tr>
+                </thead>
+                <tbody>
+                {if condition="$fin_res"}
+                {foreach name="fin_res" id="f"}
+                <tr>
+                    <td colspan="2"><span style="color: #ff0000;">{$f['class2']}&nbsp;{$f['class3']}@{$f['rate']}</span></td>
+                </tr>
+                {/foreach}
+                {/if}
+                <tr>
+                    <td>当前总赔</td>
+                    <td>{$rate5}</td>
+                </tr>
+                <tr>
+                    <td>下注金额</td>
+                    <td>{$sum_m}</td>
+                </tr>
+                <tr>
+                    <td>订单号码</td>
+                    <td>{$num}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center">
+                        <button class="layui-btn layui-btn-sm ret" type="submit">下注成功</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    layui.use(['layer'],function () {
+        var layer=layui.layer;
+        $('.ret').click(function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            window.parent.location.reload();
+        });
+    })
+</script>

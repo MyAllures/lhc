@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>特肖</title>
+    <meta charset="utf-8">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <script src="__LAYUI__/layui.js"></script>
+    <style>
+        .layui-table td{
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-card">
+                {include file="public/top"/}
+                <div class="layui-card-header">
+                    {$ids}
+                    <span style="padding: 0 0 0 15px;">当前期数：  <b style="color: red;font-weight: normal;">{:getKitheNum()}期</b></span>
+                    <span style="padding: 0 0 0 15px;">封盘时间：  <b style="color: red;font-weight: normal;">{:getKithe(30)}</b></span>
+                    <div class="layui-inline" style="padding: 0 0 0 15px;">下注金额：  <span id="allgold">0</span></div>
+                </div>
+                <div class="layui-card-body">
+                    <form action="{:url('bets/kbbSubmit')}" method="post">
+                        <input type="hidden" name="class2" value="{$ids}">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="60">
+                                <col width="75">
+                                <col width="115">
+                                <col width="30%">
+                                <col width="60">
+                                <col width="75">
+                                <col width="115">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>生肖</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+                                <th>号码</th>
+                                <th>生肖</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+                                <th>号码</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {for start="0" end="6"}
+                                <tr>
+                                    <td class="td{$i}">{$res[$i]['class3']}</td>
+                                    <td class="td{$i}"><span id="bl{$res[$i]['id']}" style="color: red;font-weight: bold;"> 0 </span></td>
+                                    <td class="td{$i}"><input type="text" class="layui-input input1" name="Num_{$i+1}" placeholder="￥">
+                                        <input name="class3_{$i+1}" value="{$res[$i]['class3']}" type="hidden" >
+                                        <input name="gb{$i+1}" type="hidden"  value="0">
+                                        <input name="xr_{$i}" type="hidden" id="xr_{$i}" value="0" >
+                                        <input name="xrr_{$i+1}" type="hidden"  value="0" >
+                                    </td>
+                                    <td class="td{$i}">
+                                        {foreach name="res[$i]['m_number']" id="m"}
+                                        <img src="__IMAGES__/num{$m}.gif" style="padding-right: 5px;"/>
+                                        {/foreach}
+                                    </td>
+                                    <td class="td{$i+6}">{$res[$i+6]['class3']}</td>
+                                    <td class="td{$i+6}"><span id="bl{$res[$i+6]['id']}" style="color: red;font-weight: bold;"> 0 </span></td>
+                                    <td class="td{$i+6}">
+                                        <input class="layui-input input1" size="4" name="Num_{$i+1+6}" placeholder="￥">
+                                        <input name="class3_{$i+1+6}" value="{$res[$i+6]['class3']}" type="hidden" >
+                                        <input name="gb{$i+1+6}" type="hidden"  value="0">
+                                        <input name="xr_{$i+6}" type="hidden" id="xr_{$i+6}" value="0" >
+                                        <input name="xrr_{$i+1+6}" type="hidden"  value="0" >
+                                    </td>
+                                    <td class="td{$i+6}">
+                                        {foreach name="res[$i+6]['m_number']" id="m"}
+                                        <img src="__IMAGES__/num{$m}.gif"  style="padding-right: 5px;"/>
+                                        {/foreach}
+                                    </td>
+                                </tr>
+                            {/for}
+                            <tr>
+                                <td colspan="8" align="center">
+                                    <input type="hidden" name="xc" value="{$xc}">
+                                    <button class="layui-btn layui-btn-sm" id="btnSubmit">提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-sm">重设</button>
+                                </td>
+                            </tr>
+                            <!--<td width="88" align="center"><input name="btnSubmit" type="submit"  class="button_a" id="btnSubmit" value="提交" /></td>-->
+                            <!--<td width="88" align="center"><input type="reset" class="button_a" name="Submit3" value="重设" /></td>-->
+                            </tbody>
+                        </table>
+                        <INPUT type=hidden value=0 name="gold_all" id="total_gold">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        //远程定时获取指定数据
+        function loc(){
+            $.ajax({
+                url:'{:url('bets/server')}',
+                type:'post',
+                returnType:'json',
+                data:{
+                'class1':'{$class1}',
+                    'class2':'{$ids}'
+            },
+            success:function(response,status,xhr){
+                for (var i=0;i<12;i++){
+                    var sbbn=i+1;
+                    if(response[i].locked==1){
+                        $('#bl'+response[i]['id']).html('停');
+                        $('#bl'+response[i]['id']).parent().parent().next().find('input').attr({disabled:true}).css('background','#F1F1F1');
+                    }else{
+                        switch('{$abcd}'){
+                            case 'A':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    $('#bl'+response[i]['id']).html('<SPAN STYLE=\'background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;\' ><span style=\'display:inline-block;height:100%;vertical-align:middle;\'></span><font color=ff0000><b>'+response[i]['rate']+'</b></font></span>');
+                                }else{
+                                    $('#bl'+response[i]['id']).html(response[i]['rate']);
+                                }
+                                break;
+                            case 'B':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('bbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('bbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html(bs);
+                                }
+                                break;
+                            case 'C':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('cbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('cbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html(bs);
+                                }
+                                break;
+                            case 'D':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('dbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('dbb')*100}")/100;
+                                    $('#bl'+response[i]['id']).html(bs);
+                                }
+                                break;
+                            default:
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    $('#bl'+response[i]['id']).html('<SPAN STYLE=\'background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;\' ><span style=\'display:inline-block;height:100%;vertical-align:middle;\'></span><font color=ff0000><b>'+response[i]['rate']+'</b></font></span>');
+                                }else{
+                                    $('#bl'+response[i]['id']).html(response[i]['rate']);
+                                }
+                                break;
+                        }
+                    }
+
+                }
+            }
+        });
+            //定时操作
+            setTimeout(loc,{$Think.config.ftime});
+        }
+        loc();      //执行
+
+        //表格点击
+        $('.layui-table td').hover(function () {
+            var className=$(this).attr('class');
+            $('.'+className).css({'background-color':'#f2f2f2'});
+        },function () {
+            var className=$(this).attr('class');
+            $('.'+className).removeAttr('style');
+        });
+
+        $('.layui-table td').click(function () {
+            var className=$(this).attr('class');
+            $('.'+className).find('input').focus();
+        })
+
+        //表单焦点判断
+        $('.input1').on('blur',function(){
+            var re = /^[0-9]+\.?[0-9]*$/;
+            var value=$(this).val();
+            var sum=parseFloat($(this).attr('sum'));
+            if(!re.test(value) && $(this).val()!=''){
+                alert('下注金额仅能输入数字');
+                $(this).val('0');
+                value=0;
+            }
+            if($(this).val()==''){
+                value=0;
+            }
+            if ( (value < {:getMemField('xy')}) && (value!='')) {$(this).val('0');$(this).focus(); alert("下注金额不可小於最低限度:{:getMemField('xy')}!!"); return false;}
+            if (parseFloat(sum+value) > {:getQuotaField($xc,'xxx')}) {$(this).val('0'); $(this).focus(); alert("对不起,号止本期下注金额最高限制 : {:getQuotaField($xc,'xxx')}!!"); return false;}
+            if (value > {:getQuotaField($xc,'xx')}) {$(this).val('0');$(this).focus(); alert("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!"); return false;}
+
+            //下注金额的值
+            var money = getAllInput();
+            if (money > {:getMemField('ts')})   {$(this).val('0');$(this).focus(); alert("下注金额不可大於可用信用额度!!");    return false;}
+
+            $('#allgold').html(money);
+            $('[name=gold_all]').val( $('#allgold').html());
+        });
+        //计算所有的input表单的值
+        function getAllInput(){
+            $nums=0;
+            for (var i=1;i<=$('.input1').length;i++){
+                if($('[name=Num_'+i+']').val()!=''){
+                    $nums+=parseFloat($('[name=Num_'+i+']').val());
+                }
+            }
+            return $nums;
+        }
+
+        //表单提交
+        $('form').submit(function(){
+            var sum=parseFloat($('#allgold').html());
+            var re = /^[0-9]+\.?[0-9]*$/;
+            if(!re.test(sum) && sum!=''){
+                alert('下注金额仅能输入数字');
+                return false;
+            }
+            if(sum<=0){
+                alert('请输入下注金额!!');
+                return false;
+            }
+            if (sum > {:getMemField('ts')})   {
+                alert("下注金额不可大於可用信用额度!!");
+                return false;
+            }
+            if (sum < {:getMemField('xy')})   {
+                alert("下注最低限额{:getMemField('xy')}元!!");
+                return false;
+            }
+            if (sum > {:getQuotaField($xc,'xx')}) {
+                alert("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!");
+                return false;
+            }
+
+            layui.use(['layer'],function () {
+                var layer=layui.layer;
+                layer.open({
+                    type: 2,
+                    title: '确认注单',
+                    shadeClose: false,
+                    shade: 0.3,
+                    maxmin: true,
+                    area: ['700px', '500px'],
+                    content: '{:url("bets/kbbSubmit")}?'+$('form').serialize()
+                });
+            });
+            return false;
+        });
+
+        //倒计时
+        var time=parseInt({:strtotime(getKithe(14))-time()});
+        function setTime(){
+            $('#time').html(time+'秒');
+            time--;
+            setTimeout(setTime,1000);
+        }
+        setTime();
+    })
+
+</script>
+
+</body>
+</html>

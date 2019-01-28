@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
+    <file url="file://D:/mysoft/qq_cache/939837530/FileRecv/tm.php" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Baobiao.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Bucang.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Daili.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Didan.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Flyk.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Guan.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Jszd.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Kakithe.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Mem.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Zhudan.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Zi.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Zm.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Zong.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Zoufei.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/controller/Zt.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/view/daili/index.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/users/view/guan/index.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/view/zhudan/index.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/view/zi/add_zi.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/view/zm/update_pz.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/users/view/zong/edit_zong.html" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

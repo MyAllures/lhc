@@ -1,0 +1,47 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.btn-group{margin-bottom: 10px;}
+	.collapse-link{float: right;cursor: pointer;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<input type="hidden" name="pid" value="{$pclass.id}">
+				    <label class="layui-form-label">上级分类</label>
+				    <div class="layui-form-mid layui-word-aux">{$pclass.cname|default='无'}</div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">名称</label>
+				    <div class="layui-input-block">
+				    	<input type="text" name="cname"  lay-verify="required" autocomplete="off" class="layui-input">     
+				    </div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-articleclass-add">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180606'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'article']);
+</script>
+{/block}

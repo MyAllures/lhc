@@ -1,0 +1,67 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+.layui-fluid{padding: 0;}
+#pic{   border: 1px solid #D2D2D2;width: 128px;height: 128px;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">	
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<form class="layui-form" lay-filter="LAY-user-add">
+				<div class="layui-form-item">
+				    <label class="layui-form-label">图片</label>
+				    <div class="layui-input-block">
+						<input type="hidden" name="pic">
+						<img src="__STATIC__/images/default_image.gif" id="pic">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">名称</label>
+				    <div class="layui-input-inline">
+				      	<input type="text" name="cname"  lay-verify="required" autocomplete="off" class="layui-input">
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">基本规则</label>
+				    <div class="layui-input-block">
+				    	<textarea class="layui-textarea" name="rule"></textarea>
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">牌型说明</label>
+				    <div class="layui-input-block">
+				    	<textarea class="layui-textarea" name="explain"></textarea>
+				    </div>
+				</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">特殊玩法</label>
+				    <div class="layui-input-block">
+				    	<textarea class="layui-textarea" name="special"></textarea>
+				    </div>
+				</div>
+				<div class="layui-form-item layui-layout-admin">
+					<div class="layui-input-block">
+						<div class="layui-footer" style="left: 0;">
+							<button class="layui-btn" lay-submit lay-filter="LAY-game-add">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'game']);
+</script>
+{/block}

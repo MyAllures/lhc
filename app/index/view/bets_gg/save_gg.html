@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过关确认订单</title>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css" type="text/css">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <script src="__LAYUI__/layui.js"></script>
+    <style>
+        .layui-table td, .layui-table th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <form action="{:url('tanGg')}" method="post" name="form1" id="form1" >
+                <input type="hidden" name="class2" value="过关">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th colspan="4">确认注单</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>账号名称</td>
+                        <td>{$mem['kauser']}</td>
+                    </tr>
+                    <tr>
+                        <td>会员类型</td>
+                        <td>{$mem['abcd']}盘</td>
+                    </tr>
+                    <tr>
+                        <td>总信用额</td>
+                        <td>{$mem['cs']}元</td>
+                    </tr>
+                    <tr>
+                        <td>可用余额</td>
+                        <td>{$mem['ts']}元</td>
+                    </tr>
+                    <tr>
+                        <td>最低限额</td>
+                        <td>{$mem['xy']}元</td>
+                    </tr>
+                    <tr>
+                        <td>下注总额</td>
+                        <td>{$mkmk}元</td>
+                    </tr>
+                    <tr>
+                        <td>当前期数</td>
+                        <td>{:getKitheNum()}期</td>
+                    </tr>
+
+                    {if condition="$arr"}
+                    {foreach name="arr" id="a"}
+                    <tr>
+                        <td colspan="2">
+                            <span style="color: red;">{$a['class2']} &nbsp;{$a['class3']} @ <b>{$a['rate']}</b> </span>
+                            <input type="hidden" name="rate_id{$a['t']}" value="{$a['rate_id']}">
+                        </td>
+                    </tr>
+                    {/foreach}
+                    {/if}
+                    <tr>
+                        <td>模式</td>
+                        <td>
+                            <select name="select">
+                                <option>单注</option>
+                            </select>
+                            <select name="select">
+                                <option value="{$z}">{$z}串1</option>
+                            </select>
+                            @{$rate2}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>下注金额</td>
+                        <td>
+                            <input type="text" name="gold" class="input1 layui-input" placeholder="￥">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>可蠃金额</td>
+                        <td><span id="win" style="color: #ff0000;">0</span></td>
+                    </tr>
+                    <tr>
+                        <td>单注限额</td>
+                        <td>{$money1}</td>
+                    </tr>
+                    <tr>
+                        <td>单号限额</td>
+                        <td>{$money2}</td>
+                    </tr>
+                    <tr>
+                        <input type="hidden" name="concede" value="SP11">
+                        <input type="hidden" name="ioradio" value="{$rate*1000}">
+                        <input type="hidden" name="from_url" value="{$url}">
+                        <td colspan="2" align="center">
+                            <button class="layui-btn layui-btn-sm layui-btn-primary ret" type="reset" >放弃</button>
+                            <button class="layui-btn layui-btn-sm" type="submit">确定</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    layui.use(['layer'],function () {
+        var layer=layui.layer;
+
+        $('.ret').click(function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+            window.parent.location.reload();
+        });
+
+        $('[name=gold]').blur(function () {
+            var re = /^[0-9]+\.?[0-9]*$/,
+                value=$(this).val(),
+                ioradio=$('[name=ioradio]').val();
+            if(!re.test(value) && value!=''){
+                layer.msg('下注金额仅能输入数字',{icon:2});
+                $(this).val('0');
+            }
+            if($(this).val()==''){
+                value=0;
+            }
+            var zmnh={$ggpz};
+            var zmnh1=Math.round(parseFloat(value) * parseFloat(ioradio) /1000);
+            var zmnh2=Math.round(zmnh/zmnh1 );
+
+            if (Math.round(zmnh1)> zmnh ){document.all.gold.focus();
+                layer.msg('你最多只可以下:'+Math.round(zmnh/(ioradio/1000))+'!!!',{icon:2});
+                return false;
+            }
+
+            if ( (value < {:getMemField('xy')}) && (value!='')) {$(this).val({:getMemField('xy')});$(this).focus();  layer.msg("下注金额不可小於最低限度:{:getMemField('xy')}!!",{icon:2}); return false;}
+            if (parseFloat({$sum_mm}+value) > {:getQuotaField($xc,'xxx')}) {$(this).val('0'); $(this).focus(); layer.msg("对不起,号止本期下注金额最高限制 : {:getQuotaField($xc,'xxx')}!!",{icon:2}); return false;}
+            if (value > {:getQuotaField($xc,'xx')}) {$(this).val('0');$(this).focus(); layer.msg("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!",{icon:2}); return false;}
+            if (value > {:getMemField('ts')})   {$(this).val('0');$(this).focus();  layer.msg("下注金额不可大於可用信用额度!!",{icon:2});    return false;}
+
+            $('#win').html(Math.round(value*ioradio/1000 -value));
+        });
+        $('form').submit(function () {
+            var re = /^[0-9]+\.?[0-9]*$/;
+            var value=$('[name=gold]').val();
+            var ioradio=$('[name=ioradio]').val();
+            if(value==''){
+                layer.msg('请输入下注金额',{icon:2});
+                return false;
+            }
+            if(!re.test(value)){
+                layer.msg('下注金额仅能输入数字',{icon:2});
+                return false;
+            }
+            var zmnh={$ggpz};
+            var zmnh1=Math.round(parseFloat(value) * parseFloat(ioradio) /1000);
+            var zmnh2=Math.round(zmnh/zmnh1 );
+            if (Math.round(zmnh1)> zmnh ){document.all.gold.focus();
+                layer.msg('你最多只可以下:'+Math.round(zmnh/(ioradio/1000))+'!!!',{icon:2});
+                return false;
+            }
+            if ( (value < {:getMemField('xy')}) && (value!='')) {
+                layer.msg("下注金额不可小於最低限度:{:getMemField('xy')}!!",{icon:2});
+                return false;
+            }
+            if (parseFloat({$sum_mm}+value) > {:getQuotaField($xc,'xxx')}) {
+                layer.msg("对不起,号止本期下注金额最高限制 : {:getQuotaField($xc,'xxx')}!!",{icon:2});
+                return false;
+            }
+            if (value > {:getQuotaField($xc,'xx')}) {
+                layer.msg("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!",{icon:2});
+                return false;
+            }
+            if (value > {:getMemField('ts')}){
+                layer.msg("下注金额不可大於可用信用额度!!",{icon:2});
+                return false;
+            }
+        });
+    })
+</script>

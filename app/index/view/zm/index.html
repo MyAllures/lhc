@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$class1}</title>
+    <meta charset="utf-8">
+    <script src="__IMAGES__/jquery.min.js"></script>
+    <link rel="stylesheet" href="__LAYUI__/css/layui.css">
+    <script src="__LAYUI__/layui.js"></script>
+    <style>
+        .layui-table td{
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row" style="background-color: #fff;">
+        <div class="layui-col-xs12">
+            <form method="post" action="{:url('bets/kbbSubmit')}">
+                <input type="hidden" name="class2" value="{$ids}">
+                <div class="layui-crad">
+                    {include file="public/top"/}
+                    <div class="layui-card-header">
+                        {$ids}下注
+                        <div class="layui-inline" style="padding: 0 0 0 15px;">当前期数：  <span style="color: red;">{:getKitheNum()}期</span></div>
+                        <span style="padding-left: 40px;">距离封盘时间：<b class="time" style="color: red;font-weight: normal;"></b></span>
+                        <div class="layui-inline" style="padding: 0 0 0 15px;">下注金额：  <span id="allgold">0</span></div>
+                        <div style="float: right;" class="layui-btn-group">
+                            <button onclick="javascript:location.href='{:url('index')}?ids=正A';return false;" class="layui-btn layui-btn-sm"><span>正A</span></button>&nbsp;
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+
+                                <th>序号</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+
+                                <th>序号</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+
+                                <th>序号</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+
+                                <th>序号</th>
+                                <th>赔率</th>
+                                <th>金额</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {for start="1" end="11"}
+                            <tr>
+                                {if condition="$i eq 10"}
+                                <td class="td{$i}"><img src="__IMAGES__/num{$i}.gif" alt=""></td>
+                                {else/}
+                                <td class="td{$i}"><img src="__IMAGES__/num0{$i}.gif" alt=""></td>
+                                {/if}
+                                <td class="td{$i}"><span id="bl{$i-1}" style="color:red;font-weight: bold;"> 0 </span></td>
+                                <td class="td{$i}">
+                                    <input name="Num_{$i}" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,$i)}">
+                                    <input name="class3_{$i}" value="{$i}" type="hidden" >
+                                    <input name="gb{$i}" type="hidden"  value="0">
+                                    <input name="xr_{$i-1}" type="hidden" id="xr_{$i-1}" value="0" >
+                                    <input name="xrr_{$i}" type="hidden"  value="0" >
+                                </td>
+
+                                <td class="td{$i+10}"><img src="__IMAGES__/num{$i+10}.gif" alt=""></td>
+                                <td class="td{$i+10}"><span id="bl{$i+9}" style="color:red;font-weight: bold;"> 0 </span></td>
+                                <td class="td{$i+10}">
+                                    <input name="Num_{$i+10}" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,$i+10)}">
+                                    <input name="class3_{$i+10}" value="{$i+10}" type="hidden" > <!--号码数-->
+                                    <input name="gb{$i+10}" type="hidden"  value="0">
+                                    <input name="xr_{$i+9}" type="hidden" id="xr_{$i+9}" value="0" >
+                                    <input name="xrr_{$i+10}" type="hidden"  value="0" >
+                                </td>
+
+                                <td class="td{$i+20}"><img src="__IMAGES__/num{$i+20}.gif" alt=""></td>
+                                <td class="td{$i+20}"><span id="bl{$i+19}" style="color:red;font-weight: bold;"> 0 </span></td>
+                                <td class="td{$i+20}">
+                                    <input name="Num_{$i+20}" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,$i+20)}">
+                                    <input name="class3_{$i+20}" value="{$i+20}" type="hidden" >
+                                    <input name="gb{$i+20}" type="hidden"  value="0">
+                                    <input name="xr_{$i+19}" type="hidden" id="xr_{$i+19}" value="0" >
+                                    <input name="xrr_{$i+20}" type="hidden"  value="0" >
+                                </td>
+
+                                <td class="td{$i+30}"><img src="__IMAGES__/num{$i+30}.gif" alt=""></td>
+                                <td class="td{$i+30}"><span id="bl{$i+29}" style="color:red;font-weight: bold;"> 0 </span></td>
+                                <td class="td{$i+30}">
+                                    <input name="Num_{$i+30}" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,$i+30)}">
+                                    <input name="class3_{$i+30}" value="{$i+30}" type="hidden" >
+                                    <input name="gb{$i+30}" type="hidden"  value="0">
+                                    <input name="xr_{$i+29}" type="hidden" id="xr_{$i+29}" value="0" >
+                                    <input name="xrr_{$i+30}" type="hidden"  value="0" >
+                                </td>
+
+                                {if condition="$i neq 10"}
+                                <td class="td{$i+40}"><img src="__IMAGES__/num{$i+40}.gif" alt=""></td>
+                                <td class="td{$i+40}"><span id="bl{$i+39}" style="color:red;font-weight: bold;"> 0 </span></td>
+                                <td class="td{$i+40}">
+                                    <input name="Num_{$i+40}" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,$i+40)}">
+                                    <input name="class3_{$i+40}" value="{$i+40}" type="hidden" >
+                                    <input name="gb{$i+40}" type="hidden"  value="0">
+                                    <input name="xr_{$i+39}" type="hidden" id="xr_{$i+39}" value="0" >
+                                    <input name="xrr_{$i+40}" type="hidden"  value="0" >
+                                </td>
+                                {/if}
+                            </tr>
+                            {/for}
+                            <tr>
+                                <td class="td50">总单</td>
+                                <td class="td50"><span id="bl49" style="color:red;font-weight: bold;">0</span></td>
+                                <td class="td50">
+                                    <input name="Num_50" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,50)}">
+                                    <input name="gb50" value="0" type="hidden">
+                                    <input name="class3_50" value="单" type="hidden" >
+                                </td>
+
+                                <td class="td51">总双</td>
+                                <td class="td51"><span id="bl50" style="color:red;font-weight: bold;">0</span></td>
+                                <td class="td51">
+                                    <input name="Num_51" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,51)}">
+                                    <input name="gb51" value="0" type="hidden">
+                                    <input name="class3_51" value="双" type="hidden" >
+                                </td>
+
+                                <td class="td52">总大</td>
+                                <td class="td52"><span id="bl51" style="color:red;font-weight: bold;">0</span></td>
+                                <td class="td52">
+                                    <input name="Num_52" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,52)}">
+                                    <input name="gb52" value="0" type="hidden">
+                                    <input name="class3_52" value="大" type="hidden" >
+                                </td>
+                                <td class="td53">总小</td>
+                                <td class="td53"><span id="bl52" style="color:red;font-weight: bold;">0</span></td>
+                                <td class="td53">
+                                    <input name="Num_53" type="text" class="input1 layui-input" placeholder="￥" style="width: 75px;" sum="{:getTanKitheSum($class1,$ids,53)}">
+                                    <input name="gb53" value="0" type="hidden">
+                                    <input name="class3_53" value="小" type="hidden" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="15" align="center">
+                                    <input type="hidden" name="xc" value="{$xc}">
+                                    <input type="hidden" name="from_url" value="{:url('index')}?ids={$ids}">
+                                    <input type=hidden value=0 name="gold_all" id="total_gold">
+                                    <input type="submit" class="layui-btn layui-btn-sm" value="提交">
+                                    <input type="reset" class="layui-btn layui-btn-sm" value="重设">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        //远程定时获取指定数据
+        function loc(){
+            $.ajax({
+                url:'{:url('bets/server')}',
+                type:'post',
+                returnType:'json',
+                data:{
+                'class1':'{$class1}',
+                    'class2':'{$ids}'
+            },
+            success:function(response,status,xhr){
+                for (var i=0;i<53;i++){
+                    var sbbn=i+1;
+                    if(response[i].locked==1){
+                        $('#bl'+i).html('停');
+                        $('#bl'+i).parent().parent().next().find('input').attr({disabled:true}).css('background','#F1F1F1');
+                    }else{
+                        switch('{$abcd}'){
+                            case 'A':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    $('#bl'+i).html('<SPAN STYLE=\'background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;\' ><span style=\'display:inline-block;height:100%;vertical-align:middle;\'></span><font color=ff0000><b>'+response[i]['rate']+'</b></font></span>');
+                                }else{
+                                    $('#bl'+i).html(response[i]['rate']);
+                                }
+                                break;
+                            case 'B':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('bbb')*100}")/100;
+                                    $('#bl'+i).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('bbb')*100}")/100;
+                                    $('#bl'+i).html(bs);
+                                }
+                                break;
+                            case 'C':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('cbb')*100}")/100;
+                                    $('#bl'+i).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('cbb')*100}")/100;
+                                    $('#bl'+i).html(bs);
+                                }
+                                break;
+                            case 'D':
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('dbb')*100}")/100;
+                                    $('#bl'+i).html("<span style='background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;' ><span style='display:inline-block;height:100%;vertical-align:middle;'></span><font color=ff0000><b>"+bs+"</b></font></span>");
+                                }else{
+                                    var bs=eval(Math.round(response[i]['rate']*100)+"-{:getConfigField('dbb')*100}")/100;
+                                    $('#bl'+i).html(bs);
+                                }
+                                break;
+                            default:
+                                if(response[i]['rate']!=response[i]['blrate']){
+                                    $('#bl'+i).html('<SPAN STYLE=\'background-color:ffff00;WIDTH: 100%;height:25px;vertical-align:middle;\' ><span style=\'display:inline-block;height:100%;vertical-align:middle;\'></span><font color=ff0000><b>'+response[i]['rate']+'</b></font></span>');
+                                }else{
+                                    $('#bl'+i).html(response[i]['rate']);
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        });
+            //定时操作
+            setTimeout(loc,{$Think.config.ftime});
+        }
+        loc();      //执行
+
+        //表格点击
+        $('.layui-table td').hover(function () {
+            var className=$(this).attr('class');
+            $('.'+className).css({'background-color':'#f2f2f2'});
+        },function () {
+            var className=$(this).attr('class');
+            $('.'+className).removeAttr('style');
+        });
+
+        $('.layui-table td').click(function () {
+            var className=$(this).attr('class');
+            $('.'+className).find('input').focus();
+        })
+
+       layui.use(['layer'],function () {
+           var layer=layui.layer;
+           //表单焦点判断
+           $('.input1').on('blur',function(){
+               var re = /^[0-9]+\.?[0-9]*$/;
+               var value=$(this).val();
+               var sum=parseFloat($(this).attr('sum'));
+               if(!re.test(value) && $(this).val()!=''){
+                   layer.msg('下注金额仅能输入数字');
+                   $(this).val('0');
+                   value=0;
+               }
+               if($(this).val()==''){
+                   value=0;
+               }
+               if ( (value < {:getMemField('xy')}) && (value!='')) {$(this).val('0');$(this).focus(); layer.msg("下注金额不可小於最低限度:{:getMemField('xy')}!!"); return false;}
+               if (parseFloat(sum+value) > {:getQuotaField($xc,'xxx')}) {$(this).val('0'); $(this).focus(); layer.msg("对不起,号止本期下注金额最高限制 : {:getQuotaField($xc,'xxx')}!!"); return false;}
+               if (value > {:getQuotaField($xc,'xx')}) {$(this).val('0');$(this).focus(); layer.msg("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!"); return false;}
+
+               //下注金额的值
+               var money = getAllInput();
+               if (money > {:getMemField('ts')}){$(this).val('0');$(this).focus(); layer.msg("下注金额不可大於可用信用额度!!");    return false;}
+
+               $('#allgold').html(money);
+               $('[name=gold_all]').val( $('#allgold').html());
+           });
+           //计算所有的input表单的值
+           function getAllInput(){
+               $nums=0;
+               for (var i=1;i<=$('.input1').length;i++){
+                   if($('[name=Num_'+i+']').val()!=''){
+                       $nums+=parseFloat($('[name=Num_'+i+']').val());
+                   }
+               }
+               return $nums;
+           }
+
+           //表单提交
+           $('form').submit(function(){
+               var sum=parseFloat($('#allgold').html());
+               var re = /^[0-9]+\.?[0-9]*$/;
+               if(!re.test(sum) && sum!=''){
+                   layer.msg('下注金额仅能输入数字');
+                   return false;
+               }
+               if(sum<=0){
+                   layer.msg('请输入下注金额!!');
+                   return false;
+               }
+               if (sum > {:getMemField('ts')})   {
+                   layer.msg("下注金额不可大於可用信用额度!!");
+                   return false;
+               }
+               if (sum < {:getMemField('xy')})   {
+                   layer.msg("下注最低限额{:getMemField('xy')}!!");
+                   return false;
+               }
+               if (sum > {:getQuotaField($xc,'xx')}) {
+                   layer.msg("对不起,下注金额已超过单注限额 : {:getQuotaField($xc,'xx')}!!");
+                   return false;
+               }
+               // $('#btnSubmit').attr('disabled','disabled');
+
+               $.ajax({
+                   type:"post",
+                   data:$('form').serialize(),
+                   url:"{:url('bets/saveKbb')}",
+                   success:function(response,status,xhr){
+                       layer.open({
+                           type: 1, //2
+                           title: '确认注单',
+                           shadeClose: false,
+                           shade: 0.3,
+                           maxmin: true,
+                           area: ['700px', '500px'],
+                           content:response
+                       })
+                   }
+               });
+               return false;
+           });
+       })
+
+
+
+        //计算倒计时
+        var time=parseInt({:strtotime(getKithe(14))-time()});
+        countDown(time);
+        //带天数的倒计时
+        function countDown(times){
+            var timer=null;
+            timer=setInterval(function(){
+                var day=0,
+                    hour=0,
+                    minute=0,
+                    second=0;//时间默认值
+                if(times > 0){
+                    day = Math.floor(times / (60 * 60 * 24));
+                    hour = Math.floor(times / (60 * 60)) - (day * 24);
+                    minute = Math.floor(times / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(times) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                }
+                if (day <= 9) day = '0' + day;
+                if (hour <= 9) hour = '0' + hour;
+                if (minute <= 9) minute = '0' + minute;
+                if (second <= 9) second = '0' + second;
+                //console.log();
+                $('.time').html(day+"天"+hour+"小时"+minute+"分钟&nbsp;&nbsp;"+second+"秒");
+                times--;
+            },1000);
+            if(times<=0){
+                clearInterval(timer);
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

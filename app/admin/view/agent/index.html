@@ -1,0 +1,44 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.toolbar{margin-bottom: 10px;}
+	input,dl{font-size: 14px;}
+	.layui-input{height: 30px;}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">{$level.cname}列表</div>
+		<div class="layui-card-body"> 
+			<input type="hidden" name="levelid" value="{$level.id}">
+			<div id="agent-table" lay-filter="agent"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="topToolbar">
+	<div class="layui-btn-container">
+		<a href="javascript:;" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">添加</a>
+	</div>
+</script>
+
+<script type="text/html" id="switchState">
+  <input type="checkbox" name="state" value="1" lay-skin="switch" lay-text="通过|拒绝" lay-filter="state" data-id="{{ d.id }}" {{ d.state == 0 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="toolbar">
+	<a class="layui-btn layui-btn layui-btn-xs " lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn layui-btn-xs layui-btn-normal" lay-event="detail">详细设定</a>
+	<a class="layui-btn layui-btn layui-btn-xs layui-btn-primary" href="index.html">下级代理</a>
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'agent']);
+</script>
+{/block}

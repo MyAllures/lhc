@@ -1,0 +1,19 @@
+<form action="" method="post" class="layui-form layui-inline">
+    {$ids}统计[{$kithe}期]
+    <div class="layui-inline" style="margin: 0 20px;">
+        选择期数：
+        <div class="layui-input-inline">
+            <select name="temppid" style="color: #0A5D94;" lay-filter="qishu">
+                {foreach name="kitheAll" id="k"}
+                <option value="{$k['nn']}" {if condition="$kithe eq $k['nn']"}selected="selected"{/if}>第{$k['nn']}期</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="layui-inline">预估风险值：
+        <div class="layui-input-inline" style="margin-right:10px;">
+            <input type="text" name="tm" value="{$tm}" class="layui-input">
+        </div>
+        <input type="submit" value="走飞计算" id="sub" class="layui-btn layui-btn-sm" >
+    </div>
+</form>

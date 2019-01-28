@@ -1,0 +1,50 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.collapse-link{float: right;cursor: pointer;}
+	li{text-align: center;}
+	li cite {
+	    position: relative;
+	    top: 2px;
+	    display: block;
+	    color: #666;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    font-size: 14px;
+	}
+</style>
+{/block}`1	
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">
+			添加充值
+			<a class="collapse-link" onclick="history.go(-1)">返回</a>
+		</div>
+		<div class="layui-card-body">
+			<ul class="layui-row layui-col-space10">
+				{volist name="taocans" id="taocan"}
+					<li class="layui-col-xs3">
+                        <a href="javascript:;" data-id="{$taocan.id}" onclick="layui.finance.pay({$taocan.id})">
+                          	<img src="{$taocan.pic}">
+                          	<cite>代理价：{$taocan.agent_price}元</cite>
+                        </a>
+                    </li>
+				{/volist}
+			</ul>
+		</div>
+	</div>
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20181201'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'finance']);
+</script>
+{/block}

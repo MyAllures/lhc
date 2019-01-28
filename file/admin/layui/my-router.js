@@ -1,0 +1,25 @@
+spaRouters.map('/index',function(transition){
+spaRouters.asyncFun('js/index.js',transition)
+})
+spaRouters.map('/list',function(transition){
+spaRouters.asyncFun('js/list.js',transition)
+})
+spaRouters.map('/detail',function(transition){
+spaRouters.asyncFun('js/detail.js',transition)
+})
+spaRouters.map('/detail2',function(transition){
+spaRouters.syncFun(function(transition){
+document.getElementById("content").innerHTML = '<p style="color:#DD8C6F;">当前同步渲染详情页' + JSON.stringify(transition) +'</p>'
+},transition)
+})
+spaRouters.beforeEach(function(transition){
+console.log('切换之前dosomething')
+setTimeout(function(){
+//模拟切换之前延迟，比如说做个异步登录信息验证
+transition.next()
+},100)
+})
+spaRouters.afterEach(function(transition){
+console.log("切换之后dosomething")
+})
+spaRouters.init()

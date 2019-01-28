@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/base.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">用户信息</div>
+                <div class="layui-card-body" pad15>
+                    <div class="layui-tab">
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form" id="form1">
+                                     <table class="layui-table">
+                                         <colgroup>
+                                             <col width="125">
+                                             <col width="40%">
+                                             <col width="125">
+                                             <col>
+                                         </colgroup>
+                                         <tbody>
+                                         <tr>
+                                             <td align="right">用户名：</td>
+                                             <td>{$user['kauser']}</td>
+                                             <td align="right">会员盘口：</td>
+                                             <td>
+                                                 {if condition="!empty($pk)"}
+                                                 {foreach name="pk" id="p"}
+                                                 {$p}盘&nbsp;
+                                                 {/foreach}
+                                                 {/if}
+                                                 {$user['abcd']} 盘
+                                             </td>
+                                         </tr>
+                                         <tr>
+                                             <td align="right">密码：</td>
+                                             <td><div class="layui-inline"> <input name="kapassword" type="password" class="layui-input"></div><span style="color: red;"> (不修改请留空)</span></td>
+                                             <td align="right">总信用额：</td>
+                                             <td>{$user['cs']}</td>
+                                         </tr>
+                                         <tr>
+                                             <td align="right">下注余额：</td>
+                                             <td>{$user['ts']}</td>
+                                             <td align="right">最低限额：</td>
+                                             <td>{$user['xy']} <span style="color: red;">(下注最低限额)</span></td>
+                                         </tr>
+                                         <tr>
+                                             <td align="right">状态：</td>
+                                             <td>{if condition="$user['stat'] eq 0"}<img src="__IMAGES__/icon_21x21_selectboxon.gif" alt="">{else/}<img src="__IMAGES__/icon_21x21_selectboxoff.gif" alt="">{/if}</td>
+                                         </tr>
+                                         <tr><td colspan="4" align="center"><button class="layui-btn layui-btn-sm" id="but">保存</button></td></tr>
+                                         </tbody>
+                                     </table>
+                                    <table class="layui-table">
+                                        <thead>
+                                        <tr>
+                                            <th>项目</th>
+                                            {if condition="$user['ma'] eq 'A'"}
+                                            <th>A佣金%</th>
+                                            {/if}
+                                            {if condition="$user['mb'] eq 'B'"/}
+                                            <th>B佣金%</th>
+                                            {/if}
+                                            {if condition="$user['mc'] eq 'C'"/}
+                                            <th>C佣金%</th>
+                                            {/if}
+                                            {if condition="$user['md'] eq 'D'"/}
+                                            <th>D佣金%</th>
+                                            {/if}
+                                            <th>单注限额</th>
+                                            <th>单项(号)限额</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {if condition="$data"}
+                                        {foreach name="data" id="d"}
+                                        <tr>
+                                        <td>{$d['ds']}</td>
+                                        {if condition="$user['ma'] eq 'A'"}
+                                        <td>{$d['yg'] ? $d['yg'] : 0}</td>
+                                         {/if}
+                                        {if condition="$user['mb'] eq 'B'"/}
+                                        <td>{$d['ygb'] ? $d['ygb'] : 0}</td>
+                                        {/if}
+                                        {if condition="$user['mc'] eq 'C'"/}
+                                        <td>{$d['ygc'] ? $d['ygc'] : 0}</td>
+                                        {/if}
+                                        {if condition="$user['md'] eq 'D'"/}
+                                        <td>{$d['ygd'] ? $d['ygd'] : 0}</td>
+                                        {/if}
+                                        <td>{$d['xx']}</td>
+                                        <td>{$d['xxx']}</td>
+                                        </tr>
+                                        {/foreach}
+                                        {/if}
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="__LAYUIS__/layui/layui.js"></script>
+<script>
+    $('.heig').css('line-height',$('.heig').height()+'px');
+    //layui
+   layui.use(['form','element','layer'],function(){
+        var form=layui.form,
+            layer=layui.layer;
+        $('#but').click(function () {
+           if(confirm('确认提交？')){
+               $.ajax({
+                   url:'{:url('saveUser')}',
+                   type:'post',
+                   dataType:'json',
+                   data:{
+                       pass:$('[name=kapassword]').val(),
+                       id:{$user['id']}
+                   },
+                   success:function(response,status,xhr){
+                       if(response.code>0){
+                           layer.msg(response.msg,{icon:2});
+                       }else{
+                           layer.msg(response.msg,{icon:1});
+                           location.reload();
+                       }
+                   }
+               })
+           }
+           return false;//24 11-5.1
+        })
+   });
+
+</script>
+</html>

@@ -1,0 +1,43 @@
+{extend name="public:base" /}
+{block name="style"}
+<style type="text/css">
+	.toolbar{margin-bottom: 10px;}
+	.pl16{padding-left: 16px;}
+	.w16{width: 16px;display: inline-block;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid">
+	<div class="layui-card">
+		<div class="layui-card-header">
+			导航设置{if condition="!empty($pnavi)"} > {$pnavi['cname']}{/if}
+			<a class="collapse-link" onclick="history.go(-1)">返回</a>
+		</div>
+		<div class="layui-card-body">
+			<div id="navi-table" lay-filter="navi"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="topToolbar">
+	<div class="layui-btn-container">
+		<a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">添加</a>
+	</div>
+</script>
+
+<script type="text/html" id="toolbar">
+	<a class="layui-btn layui-btn-xs" lay-event="add">添加</a>
+  	<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+  	<a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="delete">删除</a>
+</script>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+layui.config({
+    base: '__JS__/' //静态资源所在路径
+    ,version: '20180606'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['index', 'navi']);
+</script>
+{/block}

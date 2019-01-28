@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>总代理报表查询</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="__LAYUIS__/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LAYUIS__/style/admin.css" media="all">
+    <link rel="stylesheet" href="__LAYUI__/bootstrap/css/bootstrap.min.css">
+    <script src="__LAYUI__/jquery.min.js"></script>
+    <script src="__LAYUI__/base.js"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    [{$username}]总代理报表查询
+                    <div class="layui-inline" style="margin-left: 20%;">
+                        当前报表--&gt;&gt;
+                        {if condition="$kithe"}
+                        查第{$kithe}期
+                        {else/}
+                        日期区间：{$start}-----{$stop}
+                        {/if}
+                        &nbsp;&nbsp;&nbsp;&nbsp;投注品种：
+                        {if condition="empty($Think.post.class2)"}
+                            {$Think.post.class2}
+                        {else/}
+                            全部
+                        {/if}
+                    </div>
+                    <div class="layui-btn-group" style="float:right;">
+                        {if condition="$data['lx'] elt 1"}
+
+                        {else/}
+                        <a class="layui-btn layui-btn-primary layui-btn-sm" href="{:url('index')}">返回报表</a>
+                        {/if}
+                        <a class="layui-btn layui-btn-primary layui-btn-sm" href="javascript:location.reload();">刷新</a>
+                    </div>
+                </div>
+
+                <div class="layui-card-body" pad15>
+                    <table class="layui-table" lay-skin="row" align="center">
+                        <thead>
+                        <tr>
+                            <th rowspan="2" class="layui-bg-cyan">序号</th>
+                            <th rowspan="2" class="layui-bg-cyan">总代理账号</th>
+                            <th rowspan="2" class="layui-bg-cyan">注数</th>
+                            <th rowspan="2" class="layui-bg-cyan">下注金额</th>
+                            <th colspan="2" class="layui-bg-cyan" align="center">会    员</th>
+                            <th colspan="3" align="center" class="layui-bg-blue">总    代</th>
+                            <th rowspan="2" class="layui-bg-orange" align="center">总代上交</th>
+                            <th colspan="5" align="center" class="layui-bg-green">股    东</th>
+                            <th rowspan="2" class="layui-bg-red">上交公司</th>
+                        </tr>
+                        <tr>
+                            <th class="layui-bg-cyan">退佣</th>
+                            <th class="layui-bg-cyan">盈亏</th>
+                            <th class="layui-bg-blue">退佣</th>
+                            <th class="layui-bg-blue">占成盈亏</th>
+                            <th class="layui-bg-blue">盈亏</th>
+                            <th>占成</th>
+                            <th>占成金额</th>
+                            <th>退佣</th>
+                            <th>占成盈亏</th>
+                            <th>总盈亏</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__LAYUI__/layui.js"></script>
+<link rel="stylesheet" href="__LAYUI__/base.css">
+<style>
+    .layui-table[lay-skin="row"] th {
+        border-width: 0 1px 0 0;
+        text-align: center;
+    }
+</style>
+<script>
+
+    layui.use('form',function(){
+        var form = layui.form;
+        var layer=layui.layer;
+
+        form.render();
+    });
+</script>
+</body>
+</html>
