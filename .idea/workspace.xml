@@ -26,7 +26,35 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/index/controller/Bets.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="348">
+              <caret line="3607" column="28" selection-start-line="3607" selection-start-column="28" selection-end-line="3607" selection-end-column="28" />
+              <folding>
+                <element signature="e#44371#69560#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/index/controller/BetsDetails.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="31" column="35" lean-forward="true" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="e#42#48#0" expanded="true" />
+                <element signature="e#71#77#1" expanded="true" />
+                <element signature="n#style#0;n#span#1;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -156,7 +184,7 @@
       <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1346" />
@@ -295,12 +323,12 @@
       <workItem from="1548306644550" duration="1578000" />
       <workItem from="1548377320079" duration="25692000" />
       <workItem from="1548468124042" duration="22359000" />
-      <workItem from="1548638616205" duration="6832000" />
+      <workItem from="1548638616205" duration="7454000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1242894000" />
+    <option name="totallyTimeSpent" value="1243516000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -312,7 +340,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28290468" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -366,13 +395,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="143" selection-start-line="143" selection-end-line="143" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/admin/config.php" />
     <entry file="file://$PROJECT_DIR$/app/common/model/Config.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -777,6 +799,19 @@
           <caret line="3607" column="28" selection-start-line="3607" selection-start-column="28" selection-end-line="3607" selection-end-column="28" />
           <folding>
             <element signature="e#44371#69560#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index/controller/BetsDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="31" column="35" lean-forward="true" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="e#42#48#0" expanded="true" />
+            <element signature="e#71#77#1" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
